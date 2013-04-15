@@ -1,18 +1,18 @@
 //
-//  CCViewController.m
-//  ColorCapture
+//  CTViewController.m
+//  ColorThief
 //
-//  Created by Alex Edison on 4/10/13.
+//  Created by Alex Edison on 4/15/13.
 //  Copyright (c) 2013 Alex Edison. All rights reserved.
 //
 
-#import "CCViewController.h"
+#import "CTViewController.h"
 
-@interface CCViewController ()
+@interface CTViewController ()
 
 @end
 
-@implementation CCViewController
+@implementation CTViewController
 
 - (void)viewDidLoad
 {

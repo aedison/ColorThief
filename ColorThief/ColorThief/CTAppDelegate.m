@@ -1,14 +1,14 @@
 //
-//  CCAppDelegate.m
-//  ColorCapture
+//  CTAppDelegate.m
+//  ColorThief
 //
-//  Created by Alex Edison on 4/10/13.
+//  Created by Alex Edison on 4/15/13.
 //  Copyright (c) 2013 Alex Edison. All rights reserved.
 //
 
-#import "CCAppDelegate.h"
+#import "CTAppDelegate.h"
 
-@implementation CCAppDelegate
+@implementation CTAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
