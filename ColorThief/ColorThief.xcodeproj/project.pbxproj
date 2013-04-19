@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8124189717217C8700C995FB /* paletteDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8124189517217C8700C995FB /* paletteDB.xcdatamodeld */; };
+		812418D617217F0800C995FB /* Palettes+Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 812418D517217F0800C995FB /* Palettes+Saved.m */; };
+		812418D917217F2300C995FB /* Colors+Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 812418D817217F2300C995FB /* Colors+Saved.m */; };
 		81C9229E171BD74200A41A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229D171BD74200A41A55 /* UIKit.framework */; };
 		81C922A0171BD74200A41A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229F171BD74200A41A55 /* Foundation.framework */; };
 		81C922A2171BD74200A41A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C922A1171BD74200A41A55 /* CoreGraphics.framework */; };
@@ -18,9 +21,18 @@
 		81C922B4171BD74200A41A55 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 81C922B3171BD74200A41A55 /* Default-568h@2x.png */; };
 		81C922B7171BD74200A41A55 /* MainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81C922B5171BD74200A41A55 /* MainStoryboard.storyboard */; };
 		81C922BA171BD74200A41A55 /* CTViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 81C922B9171BD74200A41A55 /* CTViewController.m */; };
+		81E429F717219F0100A0A427 /* CTPaletteTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E429F617219F0100A0A427 /* CTPaletteTVC.m */; };
+		81E42A001721AC4900A0A427 /* Palettes.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E429FF1721AC4900A0A427 /* Palettes.m */; };
+		81E42A031721AC4900A0A427 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E42A021721AC4900A0A427 /* Colors.m */; };
+		81E42A051721B53B00A0A427 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E42A041721B53B00A0A427 /* CoreData.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8124189617217C8700C995FB /* paletteDB.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = paletteDB.xcdatamodel; sourceTree = "<group>"; };
+		812418D417217F0800C995FB /* Palettes+Saved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Palettes+Saved.h"; sourceTree = "<group>"; };
+		812418D517217F0800C995FB /* Palettes+Saved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Palettes+Saved.m"; sourceTree = "<group>"; };
+		812418D717217F2300C995FB /* Colors+Saved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Colors+Saved.h"; sourceTree = "<group>"; };
+		812418D817217F2300C995FB /* Colors+Saved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Colors+Saved.m"; sourceTree = "<group>"; };
 		81C9229A171BD74200A41A55 /* ColorThief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorThief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C9229D171BD74200A41A55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		81C9229F171BD74200A41A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -37,6 +49,13 @@
 		81C922B6171BD74200A41A55 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard.storyboard; sourceTree = "<group>"; };
 		81C922B8171BD74200A41A55 /* CTViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTViewController.h; sourceTree = "<group>"; };
 		81C922B9171BD74200A41A55 /* CTViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CTViewController.m; sourceTree = "<group>"; };
+		81E429F517219F0100A0A427 /* CTPaletteTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTPaletteTVC.h; sourceTree = "<group>"; };
+		81E429F617219F0100A0A427 /* CTPaletteTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTPaletteTVC.m; sourceTree = "<group>"; };
+		81E429FE1721AC4900A0A427 /* Palettes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palettes.h; sourceTree = "<group>"; };
+		81E429FF1721AC4900A0A427 /* Palettes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Palettes.m; sourceTree = "<group>"; };
+		81E42A011721AC4900A0A427 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
+		81E42A021721AC4900A0A427 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		81E42A041721B53B00A0A427 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -44,6 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81E42A051721B53B00A0A427 /* CoreData.framework in Frameworks */,
 				81C9229E171BD74200A41A55 /* UIKit.framework in Frameworks */,
 				81C922A0171BD74200A41A55 /* Foundation.framework in Frameworks */,
 				81C922A2171BD74200A41A55 /* CoreGraphics.framework in Frameworks */,
@@ -73,6 +93,7 @@
 		81C9229C171BD74200A41A55 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				81E42A041721B53B00A0A427 /* CoreData.framework */,
 				81C9229D171BD74200A41A55 /* UIKit.framework */,
 				81C9229F171BD74200A41A55 /* Foundation.framework */,
 				81C922A1171BD74200A41A55 /* CoreGraphics.framework */,
@@ -83,9 +104,20 @@
 		81C922A3171BD74200A41A55 /* ColorThief */ = {
 			isa = PBXGroup;
 			children = (
+				81E42A011721AC4900A0A427 /* Colors.h */,
+				81E42A021721AC4900A0A427 /* Colors.m */,
+				81E429FE1721AC4900A0A427 /* Palettes.h */,
+				81E429FF1721AC4900A0A427 /* Palettes.m */,
 				81C922AC171BD74200A41A55 /* CTAppDelegate.h */,
 				81C922AD171BD74200A41A55 /* CTAppDelegate.m */,
 				81C922B5171BD74200A41A55 /* MainStoryboard.storyboard */,
+				81E429F517219F0100A0A427 /* CTPaletteTVC.h */,
+				81E429F617219F0100A0A427 /* CTPaletteTVC.m */,
+				812418D417217F0800C995FB /* Palettes+Saved.h */,
+				812418D517217F0800C995FB /* Palettes+Saved.m */,
+				812418D717217F2300C995FB /* Colors+Saved.h */,
+				812418D817217F2300C995FB /* Colors+Saved.m */,
+				8124189517217C8700C995FB /* paletteDB.xcdatamodeld */,
 				81C922B8171BD74200A41A55 /* CTViewController.h */,
 				81C922B9171BD74200A41A55 /* CTViewController.m */,
 				81C922A4171BD74200A41A55 /* Supporting Files */,
@@ -177,6 +209,12 @@
 				81C922AA171BD74200A41A55 /* main.m in Sources */,
 				81C922AE171BD74200A41A55 /* CTAppDelegate.m in Sources */,
 				81C922BA171BD74200A41A55 /* CTViewController.m in Sources */,
+				8124189717217C8700C995FB /* paletteDB.xcdatamodeld in Sources */,
+				812418D617217F0800C995FB /* Palettes+Saved.m in Sources */,
+				812418D917217F2300C995FB /* Colors+Saved.m in Sources */,
+				81E429F717219F0100A0A427 /* CTPaletteTVC.m in Sources */,
+				81E42A001721AC4900A0A427 /* Palettes.m in Sources */,
+				81E42A031721AC4900A0A427 /* Colors.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -299,8 +337,22 @@
 				81C922BF171BD74200A41A55 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		8124189517217C8700C995FB /* paletteDB.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				8124189617217C8700C995FB /* paletteDB.xcdatamodel */,
+			);
+			currentVersion = 8124189617217C8700C995FB /* paletteDB.xcdatamodel */;
+			path = paletteDB.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 81C92292171BD74200A41A55 /* Project object */;
 }
