@@ -114,18 +114,14 @@
 
 - (NSString *)titleForPath:(NSIndexPath *)indexPath
 {
-    Colors* colorForCell=[[self.palettes[indexPath.section] paletteColors] sortedArrayUsingDescriptors:
-                          [NSArray arrayWithObject:
-                           [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES]]][indexPath.row];
+    Colors* colorForCell=[self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
     NSString* colorDescription=[NSString stringWithFormat:@"%g, %g, %g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
     return colorDescription;
 }
 
 
 - (UIImage *)imageForPath:(NSIndexPath *)indexPath{
-    Colors* colorForCell=[[self.palettes[indexPath.section] paletteColors] sortedArrayUsingDescriptors:
-                          [NSArray arrayWithObject:
-                           [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES]]][indexPath.row];
+    Colors* colorForCell=[self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
     return [colorForCell imageFromSelf];
 }
 
@@ -150,19 +146,43 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        // Delete the managed object at the given index path.
+        Colors *colorToDelete = [self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
+        [self.managedObjectContext deleteObject:colorToDelete];
+        
+        // Update the array
+        [self.palettes[indexPath.section]  removePaletteColorsObject:colorToDelete];
+        
+        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        
+        // If we emptied the palette, delete it too
+        if([[self.palettes[indexPath.section] paletteColors] count]==0){
+            Palettes* paletteToDelete = self.palettes[indexPath.section];
+            [self.managedObjectContext deleteObject:paletteToDelete];
+            [self.palettes removeObjectAtIndex:indexPath.section];
+            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]  withRowAnimation:UITableViewRowAnimationFade];
+        }
+        
+        // Commit the change.
+        NSError *error = nil;
+        if (![self.managedObjectContext save:&error]) {
+            // Handle the error.
+        }
+        //[tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+//    else if (editingStyle == UITableViewCellEditingStyleInsert) {
+//        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+//    }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.

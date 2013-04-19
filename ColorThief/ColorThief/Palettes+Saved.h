@@ -10,6 +10,8 @@
 
 @interface Palettes (Saved)
 
+- (NSArray *) paletteColorsSortedByKey:(NSString *)key;
+
 + (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
                           withName:(NSString *)paletteName
                        andFileName:(NSString *)fileName;

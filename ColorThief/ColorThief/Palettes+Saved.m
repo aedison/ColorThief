@@ -10,6 +10,12 @@
 
 @implementation Palettes (Saved)
 
+- (NSArray *) paletteColorsSortedByKey:(NSString *)key{
+    return [self.paletteColors sortedArrayUsingDescriptors:
+     [NSArray arrayWithObject:
+      [NSSortDescriptor sortDescriptorWithKey:key ascending:YES]]];
+}
+
 
 + (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
                           withName:(NSString *)paletteName
