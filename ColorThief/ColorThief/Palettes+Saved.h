@@ -10,4 +10,8 @@
 
 @interface Palettes (Saved)
 
++ (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
+                          withName:(NSString *)paletteName
+                       andFileName:(NSString *)fileName;
+
 @end

@@ -16,6 +16,7 @@
 @dynamic green;
 @dynamic idKey;
 @dynamic red;
+@dynamic alpha;
 @dynamic sourcePalette;
 
 @end

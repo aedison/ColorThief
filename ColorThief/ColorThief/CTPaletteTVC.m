@@ -9,6 +9,9 @@
 #import "CTPaletteTVC.h"
 #import "Palettes.h"
 #import "Colors.h"
+#import "Colors+Saved.h"
+#import "Palettes.h"
+#import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
 
 @interface CTPaletteTVC ()
@@ -40,6 +43,9 @@
     [super viewDidLoad];
     
     self.title=@"Saved Palettes";
+    NSError *error = nil;
+    
+    
     
     NSFetchRequest *request = [[NSFetchRequest alloc] init];
     NSEntityDescription *entity = [NSEntityDescription entityForName:@"Palette" inManagedObjectContext:self.managedObjectContext];
@@ -49,12 +55,28 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     [request setSortDescriptors:sortDescriptors];
     
-    NSError *error = nil;
+    
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
         NSLog(@"Retrieval from DB failed with error:%@",error.description);
     }
     self.palettes=mutableFetchResults;
+    
+    if ([self.palettes count]==0){
+        //For testing purposes
+        Palettes* newPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal1" andFileName:@"Test1"];
+        [newPalette addPaletteColorsObject:[Colors newColorFromUIColor:[UIColor colorWithRed:.5 green:1 blue:.75 alpha:.35] inContext:self.managedObjectContext]];
+        
+        Palettes* otherNewPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal2" andFileName:@"Test2"];
+        [otherNewPalette addPaletteColorsObject:[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext]];
+        
+        if (![self.managedObjectContext save:&error]) {
+            NSLog(@"Error during color save: %@",error.description);
+        }
+
+        [self.palettes insertObject:newPalette atIndex:0];
+        [self.palettes insertObject:otherNewPalette atIndex:0];
+    }
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -73,31 +95,38 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return [self.palettes count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
     Palettes* palette=self.palettes[section];
     return [palette.paletteColors count];
 }
 
-- (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return [self.palettes valueForKey:@"paletteName"];
+    return [self.palettes[section] paletteName];
 }
 
-- (NSString *)titleForRow:(NSUInteger)row inSection:(NSInteger) section
+
+- (NSString *)titleForPath:(NSIndexPath *)indexPath
 {
-    Colors* colorForCell=[self.palettes[section] sortedArrayUsingDescriptors:
+    Colors* colorForCell=[[self.palettes[indexPath.section] paletteColors] sortedArrayUsingDescriptors:
                           [NSArray arrayWithObject:
-                           [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES]]][row];
+                           [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES]]][indexPath.row];
     NSString* colorDescription=[NSString stringWithFormat:@"%g, %g, %g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
     return colorDescription;
+}
+
+
+- (UIImage *)imageForPath:(NSIndexPath *)indexPath{
+    Colors* colorForCell=[[self.palettes[indexPath.section] paletteColors] sortedArrayUsingDescriptors:
+                          [NSArray arrayWithObject:
+                           [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES]]][indexPath.row];
+    return [colorForCell imageFromSelf];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,7 +135,8 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
     // Configure the cell...
-    cell.textLabel.text = [self titleForRow:indexPath.row inSection:indexPath.section];
+    cell.textLabel.text = [self titleForPath:indexPath];
+    cell.imageView.image= [self imageForPath:indexPath];
     
     return cell;
 }

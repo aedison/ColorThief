@@ -10,24 +10,24 @@
 
 @implementation Palettes (Saved)
 
-- (void)addPalleteColorsObject:(Colors *)value
-{
-    
-}
 
-- (void) addPalleteColors:(NSSet *)values
++ (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
+                          withName:(NSString *)paletteName
+                       andFileName:(NSString *)fileName
 {
+    Palettes* newPalette= [NSEntityDescription insertNewObjectForEntityForName:@"Palette"
+                                                     inManagedObjectContext:managedObjectContext];
+    newPalette.fileName=fileName;
+    newPalette.paletteName=paletteName;
+    newPalette.idKey=[newPalette.fileName stringByAppendingString:newPalette.paletteName];
+    newPalette.paletteColors=nil;
     
-}
-
-- (void) removePalleteColorsObject:(Colors *)value
-{
+    NSError *error = nil;
+    if (![managedObjectContext save:&error]) {
+        NSLog(@"Error during palette save: %@",error.description);
+    }
     
-}
-
-- (void) removePalleteColors:(NSSet *)values
-{
-    
+    return newPalette;
 }
 
 @end

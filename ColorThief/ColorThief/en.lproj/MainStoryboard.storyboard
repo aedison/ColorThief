@@ -19,7 +19,7 @@
             </objects>
             <point key="canvasLocation" x="-489" y="112"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller - Color Thief-->
         <scene sceneID="5">
             <objects>
                 <viewController id="2" customClass="CTViewController" sceneMemberID="viewController">
@@ -66,25 +66,18 @@
                                     <segue destination="jyj-XP-XGe" kind="push" id="Gx4-1a-tXZ"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Color Thief" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9D2-Vl-GSu">
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="Ikq-Uf-JkW" firstAttribute="top" secondItem="UqM-LH-AA6" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="372-fI-3zW"/>
                             <constraint firstItem="UqM-LH-AA6" firstAttribute="top" secondItem="3" secondAttribute="top" constant="115" id="D3l-ef-j8I"/>
                             <constraint firstItem="XZr-i3-1DV" firstAttribute="centerX" secondItem="Ikq-Uf-JkW" secondAttribute="centerX" type="default" id="DSb-w0-Y6e"/>
-                            <constraint firstItem="9D2-Vl-GSu" firstAttribute="top" secondItem="3" secondAttribute="top" constant="20" symbolic="YES" type="default" id="J1h-he-GvA"/>
                             <constraint firstItem="Ikq-Uf-JkW" firstAttribute="centerX" secondItem="UqM-LH-AA6" secondAttribute="centerX" type="default" id="MFy-ek-DzJ"/>
-                            <constraint firstItem="UqM-LH-AA6" firstAttribute="centerX" secondItem="9D2-Vl-GSu" secondAttribute="centerX" type="default" id="MN8-Zm-nXc"/>
                             <constraint firstAttribute="centerX" secondItem="UqM-LH-AA6" secondAttribute="centerX" type="user" id="RJo-l1-x7W"/>
                             <constraint firstItem="XZr-i3-1DV" firstAttribute="top" secondItem="Ikq-Uf-JkW" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="rxi-yS-eJS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="y3B-ae-kA5"/>
+                    <navigationItem key="navigationItem" title="Color Thief" id="y3B-ae-kA5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
@@ -172,17 +165,24 @@
         <scene sceneID="xZd-5f-0yk">
             <objects>
                 <tableViewController id="jyj-XP-XGe" customClass="CTPaletteTVC" sceneMemberID="viewController">
-                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lxD-7X-Ka0">
+                    <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lxD-7X-Ka0">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="palleteCell" id="s4g-Dg-A9X">
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="paletteCell" textLabel="TPX-in-n8Y" style="IBUITableViewCellStyleDefault" id="s4g-Dg-A9X">
                                 <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                     <rect key="frame" x="0.0" y="0.0" width="300" height="43"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="left" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPX-in-n8Y">
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <color key="highlightedColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </label>
+                                    </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>

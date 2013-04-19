@@ -17,6 +17,7 @@
 @property (nonatomic, retain) NSNumber * green;
 @property (nonatomic, retain) NSString * idKey;
 @property (nonatomic, retain) NSNumber * red;
+@property (nonatomic, retain) NSNumber * alpha;
 @property (nonatomic, retain) Palettes *sourcePalette;
 
 @end

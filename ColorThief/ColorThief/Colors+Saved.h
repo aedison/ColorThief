@@ -10,4 +10,9 @@
 
 @interface Colors (Saved)
 
+- (UIColor *) associatedUIColor;
+- (UIImage *) imageFromSelf;
++ (Colors *) newColorFromUIColor:(UIColor *)color
+                   inContext:(NSManagedObjectContext *)managedObjectContext;
+
 @end
