@@ -60,9 +60,18 @@
     else
     {
         NSLog(@"No camera available");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New palette name" message:@"/n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
+        UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+        txtName.text=@"";
+        txtName.placeholder = @"Enter palette name";
+        [txtName setBackgroundColor:[UIColor whiteColor]];
+        [txtName setAutocorrectionType:UITextAutocorrectionTypeNo];
+        [txtName becomeFirstResponder];
+         
+        [alert addSubview:txtName];
+        [alert show];
     }
 }
-
 
 
 - (void)didReceiveMemoryWarning
@@ -71,6 +80,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+// Respond to button tap on alert view
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSLog(@"Cancel Tapped.");
+    }
+    else if (buttonIndex == 1) {
+        NSLog(@"OK Tapped.");
+    }
+}
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
@@ -88,6 +107,11 @@
         }
     }];
     [self dismissViewControllerAnimated:NO completion:nil];
+    
+    // Add code here for alert
+    // Alert will ask for an image name
+    /* UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter a name for your palette" message:@"More info..." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
+    [alert show]; */
     
 }
 
