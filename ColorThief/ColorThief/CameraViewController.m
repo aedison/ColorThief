@@ -7,6 +7,7 @@
 //
 
 #import "CameraViewController.h"
+#import "Palettes+Saved.h"
 
 @interface CameraViewController () <UIImagePickerControllerDelegate>
 
@@ -62,19 +63,22 @@
 
 
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info didFinishPickingImage:(UIImage *)image
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImageWriteToSavedPhotosAlbum(image, self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:NULL), NULL);
+    UIImage *viewImage =info[UIImagePickerControllerOriginalImage];
+    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+    // Request to save the image to camera roll
+    [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+        if (error) {
+            NSLog(@"error");
+        } else {
+            NSLog(@"url %@", assetURL);
+        }
+    }];
+    //[Palettes newPaletteInContext:<#(NSManagedObjectContext *)#> withName:<#(NSString *)#> andFileName:<#(NSString *)#>
     [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 
-- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
-    if (error) {
-        NSLog(@"Error! Error! ERROR!");
-    } else {
-        NSLog(@"Success! Hooray!");
-    }
-}
 
 @end
