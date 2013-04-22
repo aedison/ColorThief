@@ -38,7 +38,6 @@
 - (void) initializeCamera
 {
     // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
-    self.paletteNamed=NO;
     BOOL camera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     
     // If there is a camera, then display the world throught the viewfinder
@@ -59,7 +58,6 @@
     else
     {
         NSLog(@"No camera available");
-        [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
     }
     
 }

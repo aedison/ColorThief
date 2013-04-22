@@ -174,7 +174,7 @@
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 </view>
                                 <connections>
-                                    <segue destination="OfG-o9-5oD" kind="push" id="Pxt-oo-gtM"/>
+                                    <segue destination="OfG-o9-5oD" kind="push" identifier="ToColors" id="Pxt-oo-gtM"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

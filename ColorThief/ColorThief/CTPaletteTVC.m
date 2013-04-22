@@ -7,6 +7,7 @@
 //
 
 #import "CTPaletteTVC.h"
+#import "CTColorTVC.h"
 #import "Palettes.h"
 #import "Colors.h"
 #import "Colors+Saved.h"
@@ -38,11 +39,11 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
-    self.title=@"Saved Palettes";
+    self.title=@"Palettes";
     NSError *error = nil;
     
     
@@ -91,38 +92,69 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"ToColors"]){
+        if([segue.destinationViewController isKindOfClass:[CTColorTVC class]]){
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            CTColorTVC* colorTVC= segue.destinationViewController;
+            colorTVC.palette=self.palettes[indexPath.row];
+        }
+    }
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return [self.palettes count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     // Return the number of rows in the section.
-    Palettes* palette=self.palettes[section];
-    return [palette.paletteColors count];
+    return [self.palettes count];
 }
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
-{
-    return [self.palettes[section] paletteName];
-}
-
 
 - (NSString *)titleForPath:(NSIndexPath *)indexPath
 {
-    Colors* colorForCell=[self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
-    NSString* colorDescription=[NSString stringWithFormat:@"%g, %g, %g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
-    return colorDescription;
+    Palettes* palette=self.palettes[indexPath.row];
+    return palette.paletteName;
 }
 
 
 - (UIImage *)imageForPath:(NSIndexPath *)indexPath{
-    Colors* colorForCell=[self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
-    return [colorForCell imageFromSelf];
+    Palettes* palette=self.palettes[indexPath.row];
+    NSLog(@"File Name being read : %@", palette.fileName);
+    
+    NSURL* assetURL = [NSURL URLWithString:palette.fileName];
+    
+    __block UIImage *image;
+    
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+        CGImageRef iref = [rep fullResolutionImage];
+        if (iref) {
+            image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:[rep orientation]];
+        }
+    };
+    
+    //
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+    {
+        NSLog(@"Cant get image - %@",[myerror localizedDescription]);
+    };
+    
+    if(palette.fileName && [palette.fileName length])
+    {
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+        [assetslibrary assetForURL:assetURL
+                       resultBlock:resultblock
+                      failureBlock:failureblock];
+    }
+    
+    return image;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -154,22 +186,16 @@
         // Delete the row from the data source
         
         // Delete the managed object at the given index path.
-        Colors *colorToDelete = [self.palettes[indexPath.section] paletteColorsSortedByKey:@"red"][indexPath.row];
-        [self.managedObjectContext deleteObject:colorToDelete];
+        Palettes *paletteToDelete=self.palettes[indexPath.row];
+        
+        [paletteToDelete removePaletteColors:paletteToDelete.paletteColors];
+        [self.managedObjectContext deleteObject:paletteToDelete];
         
         // Update the array
-        [self.palettes[indexPath.section]  removePaletteColorsObject:colorToDelete];
+        [self.palettes removeObjectAtIndex:indexPath.row];
         
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
-        
-        // If we emptied the palette, delete it too
-        if([[self.palettes[indexPath.section] paletteColors] count]==0){
-            Palettes* paletteToDelete = self.palettes[indexPath.section];
-            [self.managedObjectContext deleteObject:paletteToDelete];
-            [self.palettes removeObjectAtIndex:indexPath.section];
-            [tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section]  withRowAnimation:UITableViewRowAnimationFade];
-        }
         
         // Commit the change.
         NSError *error = nil;

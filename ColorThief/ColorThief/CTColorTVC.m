@@ -39,9 +39,9 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
     
     self.title=self.palette.paletteName;
     self.colors=[NSMutableArray arrayWithArray:[self.palette paletteColorsSortedByKey:@"red"]];
@@ -136,7 +136,7 @@
         // Update the array
         [self.palette  removePaletteColorsObject:colorToDelete];
         [self.colors removeObjectAtIndex:indexPath.row];
-        
+        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
         
         // Commit the change.
         NSError *error = nil;
