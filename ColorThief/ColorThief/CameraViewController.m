@@ -64,9 +64,17 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info didFinishPickingImage:(UIImage *)image
 {
-    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    UIImageWriteToSavedPhotosAlbum(image, self, @selector(thisImage:hasBeenSavedInPhotoAlbumWithError:usingContextInfo:), NULL), Nil;
     [self dismissViewControllerAnimated:NO completion:nil];
     
+}
+
+- (void)thisImage:(UIImage *)image hasBeenSavedInPhotoAlbumWithError:(NSError *)error usingContextInfo:(void*)ctxInfo {
+    if (error) {
+        NSLog(@"Error! Error! ERROR!");
+    } else {
+        NSLog(@"Success! Hooray!");
+    }
 }
 
 @end
