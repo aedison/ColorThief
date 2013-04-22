@@ -11,5 +11,6 @@
 
 @interface CameraViewController : UIViewController
 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 
 @end

@@ -8,12 +8,22 @@
 
 #import "CameraViewController.h"
 #import "Palettes+Saved.h"
+#import "CTAppDelegate.h"
 
 @interface CameraViewController () <UIImagePickerControllerDelegate>
 
 @end
 
 @implementation CameraViewController
+
+- (NSManagedObjectContext *) managedObjectContext
+{
+    if(_managedObjectContext==nil){
+        CTAppDelegate* appDelegate=[[UIApplication sharedApplication] delegate];
+        _managedObjectContext = [appDelegate managedObjectContext];
+    }
+    return _managedObjectContext;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -68,14 +78,15 @@
     UIImage *viewImage =info[UIImagePickerControllerOriginalImage];
     ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
     // Request to save the image to camera roll
-    [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *assetURL, NSError *error){
+    [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *imageURL, NSError *error){
         if (error) {
             NSLog(@"error");
         } else {
-            NSLog(@"url %@", assetURL);
+            NSLog(@"url %@", imageURL);
+            NSString* paletteName=@"Test";
+            [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
         }
     }];
-    //[Palettes newPaletteInContext:<#(NSManagedObjectContext *)#> withName:<#(NSString *)#> andFileName:<#(NSString *)#>
     [self dismissViewControllerAnimated:NO completion:nil];
     
 }

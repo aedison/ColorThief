@@ -19,11 +19,11 @@
 
 + (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
                           withName:(NSString *)paletteName
-                       andFileName:(NSString *)fileName
+                       andFileName:(NSURL *)fileName
 {
     Palettes* newPalette= [NSEntityDescription insertNewObjectForEntityForName:@"Palette"
                                                      inManagedObjectContext:managedObjectContext];
-    newPalette.fileName=fileName;
+    newPalette.fileName=[fileName absoluteString];
     newPalette.paletteName=paletteName;
     newPalette.idKey=[newPalette.fileName stringByAppendingString:newPalette.paletteName];
     newPalette.paletteColors=nil;

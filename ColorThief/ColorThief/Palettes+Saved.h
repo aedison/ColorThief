@@ -14,6 +14,6 @@
 
 + (Palettes *) newPaletteInContext:(NSManagedObjectContext *)managedObjectContext
                           withName:(NSString *)paletteName
-                       andFileName:(NSString *)fileName;
+                       andFileName:(NSURL *)fileName;
 
 @end
