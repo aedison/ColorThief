@@ -40,7 +40,7 @@
         picker.delegate = self;
         
         picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentModalViewController:picker animated:YES];
+        [self presentViewController:picker animated:NO completion:nil];
         
         NSLog(@"Camera is available");
     }
@@ -61,13 +61,10 @@
 }
 
 
-- (IBAction)capPress:(id)sender
-{
-
-}
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    [self dismissViewControllerAnimated:NO completion:nil];
     
 }
 

@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface CameraViewController : UIViewController
-- (IBAction)capPress:(id)sender;
+
 
 @end
