@@ -25,6 +25,7 @@
 		81E429F717219F0100A0A427 /* CTPaletteTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E429F617219F0100A0A427 /* CTPaletteTVC.m */; };
 		81E42A001721AC4900A0A427 /* Palettes.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E429FF1721AC4900A0A427 /* Palettes.m */; };
 		81E42A051721B53B00A0A427 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E42A041721B53B00A0A427 /* CoreData.framework */; };
+		F8AE93D61725A09A00A7FCDF /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE93D51725A09A00A7FCDF /* CameraViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,8 @@
 		81E429FE1721AC4900A0A427 /* Palettes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Palettes.h; sourceTree = "<group>"; };
 		81E429FF1721AC4900A0A427 /* Palettes.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Palettes.m; sourceTree = "<group>"; };
 		81E42A041721B53B00A0A427 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		F8AE93D41725A09A00A7FCDF /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
+		F8AE93D51725A09A00A7FCDF /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +107,8 @@
 		81C922A3171BD74200A41A55 /* ColorThief */ = {
 			isa = PBXGroup;
 			children = (
+				F8AE93D41725A09A00A7FCDF /* CameraViewController.h */,
+				F8AE93D51725A09A00A7FCDF /* CameraViewController.m */,
 				81E429FE1721AC4900A0A427 /* Palettes.h */,
 				81E429FF1721AC4900A0A427 /* Palettes.m */,
 				81C922AC171BD74200A41A55 /* CTAppDelegate.h */,
@@ -215,6 +220,7 @@
 				81E429F717219F0100A0A427 /* CTPaletteTVC.m in Sources */,
 				81E42A001721AC4900A0A427 /* Palettes.m in Sources */,
 				816917671721C751002F4BF6 /* Colors.m in Sources */,
+				F8AE93D61725A09A00A7FCDF /* CameraViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
