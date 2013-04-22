@@ -10,7 +10,7 @@
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
 
-@interface CameraViewController () <UIImagePickerControllerDelegate>
+@interface CameraViewController () 
 
 @end
 
@@ -35,23 +35,22 @@
     return self;
 }
 
-- (void)viewDidLoad
+- (void) initializeCamera
 {
-    [super viewDidLoad];
-	// Do any additional setup after loading the view.
     // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
+    self.paletteNamed=NO;
     BOOL camera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     
     // If there is a camera, then display the world throught the viewfinder
     if(camera)
     {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        self.picker = [[UIImagePickerController alloc] init];
         
         // Since I'm not actually taking a picture, is a delegate function necessary?
-        picker.delegate = self;
+        self.picker.delegate = self;
         
-        picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:picker animated:NO completion:nil];
+        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        [self presentViewController:self.picker animated:YES completion:nil];
         
         NSLog(@"Camera is available");
     }
@@ -60,17 +59,25 @@
     else
     {
         NSLog(@"No camera available");
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New palette name" message:@"/n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
-        UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
-        txtName.text=@"";
-        txtName.placeholder = @"Enter palette name";
-        [txtName setBackgroundColor:[UIColor whiteColor]];
-        [txtName setAutocorrectionType:UITextAutocorrectionTypeNo];
-        [txtName becomeFirstResponder];
-         
-        [alert addSubview:txtName];
-        [alert show];
+        [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
     }
+    
+}
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+	// Do any additional setup after loading the view.
+
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    if(self.picker==nil){
+       [self initializeCamera]; 
+    }
+    
 }
 
 
@@ -85,34 +92,58 @@
 {
     if (buttonIndex == 0) {
         NSLog(@"Cancel Tapped.");
+        [self imagePickerControllerDidCancel:self.picker];
     }
     else if (buttonIndex == 1) {
         NSLog(@"OK Tapped.");
+        if([[alertView.subviews lastObject] isKindOfClass:[UITextField class]]){
+            
+            UIImage *viewImage =self.imageInfo[UIImagePickerControllerOriginalImage];
+            UITextView* txtView=[alertView.subviews lastObject];
+            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
+            NSString* paletteName=txtView.text;
+            
+            // Request to save the image to camera roll
+            [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *imageURL, NSError *error){
+                if (error) {
+                    NSLog(@"error");
+                } else {
+                    NSLog(@"url %@", imageURL);
+                    
+                    [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+                }
+            }];
+            [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
+            self.picker=nil;
+            [self dismissViewControllerAnimated:YES completion:nil];
+        }
     }
 }
 
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    UIImage *viewImage =info[UIImagePickerControllerOriginalImage];
-    ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
-    // Request to save the image to camera roll
-    [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *imageURL, NSError *error){
-        if (error) {
-            NSLog(@"error");
-        } else {
-            NSLog(@"url %@", imageURL);
-            NSString* paletteName=@"Test";
-            [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
-        }
-    }];
-    [self dismissViewControllerAnimated:NO completion:nil];
+    self.imageInfo=info;
     
-    // Add code here for alert
-    // Alert will ask for an image name
-    /* UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please enter a name for your palette" message:@"More info..." delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
-    [alert show]; */
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New palette name" message:@"/n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
+    UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+    txtName.text=@"";
+    txtName.placeholder = @"Enter palette name";
+    [txtName setBackgroundColor:[UIColor whiteColor]];
+    [txtName setAutocorrectionType:UITextAutocorrectionTypeNo];
+    [txtName becomeFirstResponder];
     
+    [alert addSubview:txtName];
+    [alert show];
+
+    
+}
+
+- (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    self.picker=nil;
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 

@@ -9,8 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@interface CameraViewController : UIViewController
+@interface CameraViewController : UIViewController <UIImagePickerControllerDelegate,UIAlertViewDelegate>
 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic) BOOL paletteNamed;
+@property (nonatomic, strong) NSDictionary* imageInfo;
+@property (nonatomic, strong) UIImagePickerController *picker;
 
 @end
