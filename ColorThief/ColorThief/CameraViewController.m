@@ -62,8 +62,9 @@
 
 
 
-- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info didFinishPickingImage:(UIImage *)image
 {
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
     [self dismissViewControllerAnimated:NO completion:nil];
     
 }
