@@ -29,6 +29,8 @@
 		81E42A051721B53B00A0A427 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81E42A041721B53B00A0A427 /* CoreData.framework */; };
 		81E5BC271725D21600F108AB /* CTColorTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 81E5BC261725D21600F108AB /* CTColorTVC.m */; };
 		F8AE93D61725A09A00A7FCDF /* CameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F8AE93D51725A09A00A7FCDF /* CameraViewController.m */; };
+		F8CC6ACE17271E8C00A0AD34 /* iPhoneSamplePic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */; };
+		F8CC6AD117271F6800A0AD34 /* ColorView.m in Sources */ = {isa = PBXBuildFile; fileRef = F8CC6AD017271F6800A0AD34 /* ColorView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +69,9 @@
 		81E5BC261725D21600F108AB /* CTColorTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTColorTVC.m; sourceTree = "<group>"; };
 		F8AE93D41725A09A00A7FCDF /* CameraViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CameraViewController.h; sourceTree = "<group>"; };
 		F8AE93D51725A09A00A7FCDF /* CameraViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CameraViewController.m; sourceTree = "<group>"; };
+		F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = iPhoneSamplePic.jpg; sourceTree = "<group>"; };
+		F8CC6ACF17271F6800A0AD34 /* ColorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ColorView.h; path = ../ColorView.h; sourceTree = "<group>"; };
+		F8CC6AD017271F6800A0AD34 /* ColorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ColorView.m; path = ../ColorView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,6 +122,8 @@
 		81C922A3171BD74200A41A55 /* ColorThief */ = {
 			isa = PBXGroup;
 			children = (
+				F8CC6ACF17271F6800A0AD34 /* ColorView.h */,
+				F8CC6AD017271F6800A0AD34 /* ColorView.m */,
 				F8AE93D41725A09A00A7FCDF /* CameraViewController.h */,
 				F8AE93D51725A09A00A7FCDF /* CameraViewController.m */,
 				81E429FE1721AC4900A0A427 /* Palettes.h */,
@@ -132,6 +139,7 @@
 				81E5BC261725D21600F108AB /* CTColorTVC.m */,
 				812418D417217F0800C995FB /* Palettes+Saved.h */,
 				812418D517217F0800C995FB /* Palettes+Saved.m */,
+				F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */,
 				812418D717217F2300C995FB /* Colors+Saved.h */,
 				812418D817217F2300C995FB /* Colors+Saved.m */,
 				8124189517217C8700C995FB /* paletteDB.xcdatamodeld */,
@@ -215,6 +223,7 @@
 				81C922B2171BD74200A41A55 /* Default@2x.png in Resources */,
 				81C922B4171BD74200A41A55 /* Default-568h@2x.png in Resources */,
 				81C922B7171BD74200A41A55 /* MainStoryboard.storyboard in Resources */,
+				F8CC6ACE17271E8C00A0AD34 /* iPhoneSamplePic.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -237,6 +246,7 @@
 				F8AE93D61725A09A00A7FCDF /* CameraViewController.m in Sources */,
 				8123D3BB1725CBBE00106A45 /* CTGrabberViewController.m in Sources */,
 				81E5BC271725D21600F108AB /* CTColorTVC.m in Sources */,
+				F8CC6AD117271F6800A0AD34 /* ColorView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

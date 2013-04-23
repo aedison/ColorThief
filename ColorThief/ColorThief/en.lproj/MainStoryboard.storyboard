@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -105,12 +105,33 @@
         <scene sceneID="yDi-p0-iqu">
             <objects>
                 <viewController id="siX-BB-BDM" customClass="CTGrabberViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KtQ-Q5-EL0">
+                    <view key="view" contentMode="scaleToFill" id="KtQ-Q5-EL0" customClass="ColorView">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFN-A6-wgh">
+                                <items>
+                                    <barButtonItem title="Viewer" id="YCp-SZ-Qwh"/>
+                                    <barButtonItem title="Grabber" id="AHe-Op-xVf"/>
+                                    <barButtonItem title="Save Color" id="U6z-96-IBI"/>
+                                    <barButtonItem title="Redraw" id="fOI-ND-6aw"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" none="YES" image="YES"/>
+                        </accessibility>
+                        <constraints>
+                            <constraint firstItem="XFN-A6-wgh" firstAttribute="leading" secondItem="KtQ-Q5-EL0" secondAttribute="leading" type="default" id="Nvh-GM-dBh"/>
+                            <constraint firstItem="XFN-A6-wgh" firstAttribute="bottom" secondItem="KtQ-Q5-EL0" secondAttribute="bottom" type="default" id="YeB-HZ-eMf"/>
+                            <constraint firstItem="XFN-A6-wgh" firstAttribute="trailing" secondItem="KtQ-Q5-EL0" secondAttribute="trailing" type="default" id="esL-sk-0z4"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Grabber" id="Jpk-qj-pFX"/>
+                    <connections>
+                        <outlet property="view" destination="KtQ-Q5-EL0" id="2R0-Me-hOO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzy-xP-fZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -123,7 +144,26 @@
                     <view key="view" contentMode="scaleToFill" id="9vO-7h-8Me">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U7-ME-MAp">
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="siX-BB-BDM" kind="push" id="Wpz-QY-iZJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="2U7-ME-MAp" firstAttribute="leading" secondItem="9vO-7h-8Me" secondAttribute="leading" constant="106" id="GnU-2D-bXw"/>
+                            <constraint firstAttribute="bottom" secondItem="2U7-ME-MAp" secondAttribute="bottom" constant="110" id="xUP-Z7-hl7"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Media Browser" id="Reo-7o-W1e"/>
                     <connections>
@@ -234,6 +274,29 @@
             <point key="canvasLocation" x="1133" y="807"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CTColorTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTColorTVC.h"/>
+        </class>
+        <class className="CTGrabberViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTGrabberViewController.h"/>
+        </class>
+        <class className="CTPaletteTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTPaletteTVC.h"/>
+        </class>
+        <class className="CTViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTViewController.h"/>
+        </class>
+        <class className="CameraViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
+        </class>
+        <class className="ColorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorView.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

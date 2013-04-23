@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ColorView.h"
 
 @interface CTGrabberViewController : UIViewController
 
