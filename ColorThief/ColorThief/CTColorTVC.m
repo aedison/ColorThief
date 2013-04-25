@@ -8,12 +8,10 @@
 
 
 #import "CTColorTVC.h"
-#import "Palettes.h"
-#import "Colors.h"
 #import "Colors+Saved.h"
-#import "Palettes.h"
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
+#import "CTColorEditorController.h"
 
 @interface CTColorTVC ()
 
@@ -74,6 +72,25 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
+    if([segue.identifier isEqualToString:@"editColor"]){
+        if([segue.destinationViewController isKindOfClass:[CTColorEditorController class]]){
+            CTColorEditorController* colorEditor = segue.destinationViewController;
+            NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+            colorEditor.color = self.colors[indexPath.row];
+            colorEditor.palette = self.palette;
+        }
+    }
+    else if([segue.identifier isEqualToString:@"newColor"]){
+        if([segue.destinationViewController isKindOfClass:[CTColorEditorController class]]){
+            CTColorEditorController* colorEditor = segue.destinationViewController;
+            colorEditor.palette = self.palette;
+            colorEditor.color=[Colors newColorFromUIColor:[UIColor blackColor] inContext:self.managedObjectContext];
+        }
+        
+    }
 }
 
 #pragma mark - Table view data source
