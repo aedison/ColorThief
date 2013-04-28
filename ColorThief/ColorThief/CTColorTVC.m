@@ -61,8 +61,13 @@
         [self.colors insertObject:otherNewColor atIndex:0];
     }
     
+    
+    
     // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+    self.clearsSelectionOnViewWillAppear = NO;
+    
+    // This seems inefficient.  Should maybe consider some other approach
+    [self.tableView reloadData];
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
@@ -81,6 +86,7 @@
             NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
             colorEditor.color = self.colors[indexPath.row];
             colorEditor.palette = self.palette;
+            colorEditor.managedObjectContext=self.managedObjectContext;
         }
     }
     else if([segue.identifier isEqualToString:@"newColor"]){
@@ -88,6 +94,7 @@
             CTColorEditorController* colorEditor = segue.destinationViewController;
             colorEditor.palette = self.palette;
             colorEditor.color=[Colors newColorFromUIColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1] inContext:self.managedObjectContext];
+            colorEditor.managedObjectContext=self.managedObjectContext;
         }
         
     }
@@ -108,7 +115,7 @@
 - (NSString *)titleForPath:(NSIndexPath *)indexPath
 {
     Colors* colorForCell=self.colors[indexPath.row];
-    NSString* colorDescription=[NSString stringWithFormat:@"%g, %g, %g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
+    NSString* colorDescription=[NSString stringWithFormat:@"%.2g, %.2g, %.2g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
     return colorDescription;
 }
 

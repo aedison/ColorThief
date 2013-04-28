@@ -125,7 +125,6 @@
 
 - (UIImage *)imageForPath:(NSIndexPath *)indexPath{
     Palettes* palette=self.palettes[indexPath.row];
-    NSLog(@"File Name being read : %@", palette.fileName);
     
     NSURL* assetURL = [NSURL URLWithString:palette.fileName];
     
