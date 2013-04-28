@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @class Colors,Palettes;
 
@@ -14,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *colorIV;
 @property (weak, nonatomic) IBOutlet UIImageView *paletteSourceIV;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *paletteSourceLoading;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *colorViewLoading;
 @property (weak, nonatomic) IBOutlet UILabel *paletteName;
 @property (weak, nonatomic) IBOutlet UITextField *redTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *greenTxtField;
@@ -29,5 +31,9 @@
 @property (strong, nonatomic) Colors* color;
 @property (strong, nonatomic) Palettes* palette;
 @property (strong, nonatomic) UIImage* imageForPalette;
+
+- (void) loadImage:(UIImage *) image
+            toView:(UIImageView *)imageView
+ stoppingIndicator:(UIActivityIndicatorView *) indicator;
 
 @end

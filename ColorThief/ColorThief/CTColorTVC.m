@@ -87,7 +87,7 @@
         if([segue.destinationViewController isKindOfClass:[CTColorEditorController class]]){
             CTColorEditorController* colorEditor = segue.destinationViewController;
             colorEditor.palette = self.palette;
-            colorEditor.color=[Colors newColorFromUIColor:[UIColor blackColor] inContext:self.managedObjectContext];
+            colorEditor.color=[Colors newColorFromUIColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1] inContext:self.managedObjectContext];
         }
         
     }

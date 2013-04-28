@@ -188,7 +188,7 @@
                                 </constraints>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsY-AP-4bm"/>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SHn-dc-Ewo"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="SHn-dc-Ewo"/>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Palette Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JTV-vd-7oB">
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,9 +222,6 @@
                                         </connections>
                                     </slider>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="U5j-IW-ibA">
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="177" id="9Xj-cY-YeV"/>
-                                        </constraints>
                                         <connections>
                                             <action selector="bludeSliderChanged:" destination="418-Lz-nIs" eventType="valueChanged" id="drX-pL-5W6"/>
                                         </connections>
@@ -251,13 +248,17 @@
                                     <constraint firstItem="NAI-t1-z1a" firstAttribute="trailing" secondItem="h10-nW-8ht" secondAttribute="trailing" type="default" id="y5q-gF-2XR"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BSm-cn-QlA"/>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="gsY-AP-4bm" firstAttribute="trailing" secondItem="XqG-Pk-Ppi" secondAttribute="trailing" type="default" id="0Fl-7L-2u9"/>
+                            <constraint firstItem="BSm-cn-QlA" firstAttribute="top" secondItem="SHn-dc-Ewo" secondAttribute="top" type="default" id="1Nj-VX-F3U"/>
+                            <constraint firstItem="BSm-cn-QlA" firstAttribute="centerX" secondItem="gsY-AP-4bm" secondAttribute="centerX" type="default" id="4b9-Uj-r8g"/>
                             <constraint firstItem="SHn-dc-Ewo" firstAttribute="centerY" secondItem="SgJ-bT-HgN" secondAttribute="centerY" type="default" id="71e-tD-GYz"/>
                             <constraint firstItem="gsY-AP-4bm" firstAttribute="bottom" secondItem="SgJ-bT-HgN" secondAttribute="bottom" type="default" id="82H-iY-Snr"/>
                             <constraint firstItem="JTV-vd-7oB" firstAttribute="trailing" secondItem="SgJ-bT-HgN" secondAttribute="trailing" type="default" id="9c0-Zp-GPY"/>
+                            <constraint firstAttribute="trailing" secondItem="BSm-cn-QlA" secondAttribute="trailing" constant="77" id="Ahv-yV-xz5"/>
                             <constraint firstItem="SHn-dc-Ewo" firstAttribute="leading" secondItem="Xha-4c-Pem" secondAttribute="leading" constant="79" id="Kn2-sD-qXr"/>
                             <constraint firstItem="JTV-vd-7oB" firstAttribute="top" secondItem="SgJ-bT-HgN" secondAttribute="bottom" constant="8" symbolic="YES" type="default" id="Mcc-Uf-N61"/>
                             <constraint firstItem="SgJ-bT-HgN" firstAttribute="leading" secondItem="Xha-4c-Pem" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="PhP-Gu-z8f"/>
@@ -276,6 +277,7 @@
                         <outlet property="blueSlider" destination="U5j-IW-ibA" id="N5v-Pu-6lN"/>
                         <outlet property="blueTxtField" destination="dGH-Ty-hce" id="oEV-cF-Twr"/>
                         <outlet property="colorIV" destination="gsY-AP-4bm" id="3X4-ms-VmX"/>
+                        <outlet property="colorViewLoading" destination="BSm-cn-QlA" id="5Vz-dj-bGJ"/>
                         <outlet property="greenSlider" destination="DqC-f9-1QE" id="3Fx-bR-20y"/>
                         <outlet property="greenTxtField" destination="NAI-t1-z1a" id="DmL-2d-3ts"/>
                         <outlet property="paletteName" destination="JTV-vd-7oB" id="PL0-P9-VAp"/>
@@ -388,6 +390,7 @@
                 <relationship kind="outlet" name="blueSlider" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="blueTxtField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="colorIV" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="colorViewLoading" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="greenSlider" candidateClass="UISlider"/>
                 <relationship kind="outlet" name="greenTxtField" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="paletteName" candidateClass="UILabel"/>
