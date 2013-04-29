@@ -144,7 +144,6 @@
 				81E5BC261725D21600F108AB /* CTColorTVC.m */,
 				812418D417217F0800C995FB /* Palettes+Saved.h */,
 				812418D517217F0800C995FB /* Palettes+Saved.m */,
-				F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */,
 				812418D717217F2300C995FB /* Colors+Saved.h */,
 				812418D817217F2300C995FB /* Colors+Saved.m */,
 				8124189517217C8700C995FB /* paletteDB.xcdatamodeld */,
@@ -160,6 +159,7 @@
 		81C922A4171BD74200A41A55 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */,
 				81C922A5171BD74200A41A55 /* ColorThief-Info.plist */,
 				81C922A6171BD74200A41A55 /* InfoPlist.strings */,
 				81C922A9171BD74200A41A55 /* main.m */,

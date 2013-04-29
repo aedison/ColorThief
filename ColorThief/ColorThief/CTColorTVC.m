@@ -46,6 +46,8 @@
     
     NSError* error;
     
+    //Testing Code
+    
     if ([self.colors count]==0){
         //For testing purposes
         Colors* newColor=[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext];
@@ -60,7 +62,7 @@
         [self.colors insertObject:newColor atIndex:0];
         [self.colors insertObject:otherNewColor atIndex:0];
     }
-    
+    //END testing code
     
     
     // Uncomment the following line to preserve selection between presentations.

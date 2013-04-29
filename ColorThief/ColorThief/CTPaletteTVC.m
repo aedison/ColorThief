@@ -63,6 +63,7 @@
     }
     self.palettes=mutableFetchResults;
     
+    // Testing Code
     if ([self.palettes count]==0){
         //For testing purposes
         Palettes* newPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal1" andFileName:[NSURL URLWithString:@"Test1"]];
@@ -78,6 +79,7 @@
         [self.palettes insertObject:newPalette atIndex:0];
         [self.palettes insertObject:otherNewPalette atIndex:0];
     }
+    //END testing code
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
