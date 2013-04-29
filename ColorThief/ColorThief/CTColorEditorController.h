@@ -45,4 +45,6 @@
             toView:(UIImageView *)imageView
  stoppingIndicator:(UIActivityIndicatorView *) indicator;
 
+- (BOOL) textFieldIsValid:(UITextField *)textField;
+
 @end

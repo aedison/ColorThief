@@ -67,22 +67,26 @@
     
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
     
-    self.redTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.red floatValue]];
-    self.greenTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.green floatValue]];
-    self.blueTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.blue floatValue]];
+    self.redTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.red floatValue]*255];
+    self.greenTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.green floatValue]*255];
+    self.blueTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.blue floatValue]*255];
+    self.alphaTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.alpha floatValue]];
     self.paletteName.text = self.palette.paletteName;
     
-    self.redSlider.maximumValue=100;
-    self.greenSlider.maximumValue=100;
-    self.blueSlider.maximumValue=100;
+    self.redSlider.maximumValue=255;
+    self.greenSlider.maximumValue=255;
+    self.blueSlider.maximumValue=255;
+    self.alphaSlider.maximumValue=100;
     
-    self.redSlider.value = 100*self.color.red.floatValue;
-    self.greenSlider.value = 100*self.color.green.floatValue;
-    self.blueSlider.value = 100*self.color.blue.floatValue;
+    self.redSlider.value = 255*self.color.red.floatValue;
+    self.greenSlider.value = 255*self.color.green.floatValue;
+    self.blueSlider.value = 255*self.color.blue.floatValue;
+    self.alphaSlider.value = 100*self.color.alpha.floatValue;
     
     self.redTxtField.delegate=self;
     self.greenTxtField.delegate=self;
     self.blueTxtField.delegate=self;
+    self.alphaTxtField.delegate=self;
     
 }
 
@@ -94,26 +98,30 @@
 
 - (IBAction)redSliderChanged:(UISlider *)sender
 {
-    self.redTxtField.text=[NSString stringWithFormat:@"%.2g", sender.value/100];
-    self.color.red = [NSNumber numberWithFloat: sender.value/100];
+    self.redTxtField.text=[NSString stringWithFormat:@"%.3g", sender.value];
+    self.color.red = [NSNumber numberWithFloat: sender.value/255];
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
 }
 
 - (IBAction)greenSliderChagned:(UISlider *)sender
 {
-    self.greenTxtField.text=[NSString stringWithFormat:@"%.2g", sender.value/100];
-    self.color.green = [NSNumber numberWithFloat: sender.value/100];
+    self.greenTxtField.text=[NSString stringWithFormat:@"%.3g", sender.value];
+    self.color.green = [NSNumber numberWithFloat: sender.value/255];
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
 }
 
 - (IBAction)blueSliderChanged:(UISlider *)sender
 {
-    self.blueTxtField.text=[NSString stringWithFormat:@"%.2g", sender.value/100];
-    self.color.blue = [NSNumber numberWithFloat: sender.value/100];
+    self.blueTxtField.text=[NSString stringWithFormat:@"%.3g", sender.value];
+    self.color.blue = [NSNumber numberWithFloat: sender.value/255];
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
 }
 
-- (IBAction)alphaSliderChanged:(UISlider *)sender {
+- (IBAction)alphaSliderChanged:(UISlider *)sender
+{
+    self.alphaTxtField.text=[NSString stringWithFormat:@"%.2g", sender.value/100];
+    self.color.alpha = [NSNumber numberWithFloat: sender.value/100];
+    [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
 }
 
 - (IBAction)saveButton:(UIButton *)sender
@@ -128,15 +136,18 @@
 
 - (IBAction)resetButton:(UIButton *)sender
 {
+    // Rollback any changes
     [self.managedObjectContext rollback];
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
-    self.redSlider.value = 100*self.color.red.floatValue;
-    self.greenSlider.value = 100*self.color.green.floatValue;
-    self.blueSlider.value = 100*self.color.blue.floatValue;
+    self.redTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.red floatValue]*255];
+    self.greenTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.green floatValue]*255];
+    self.blueTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.blue floatValue]*255];
+    self.alphaTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.alpha floatValue]];
     
-    self.redTxtField.text = [NSString stringWithFormat:@"%@",self.color.red];
-    self.greenTxtField.text = [NSString stringWithFormat:@"%@",self.color.green];
-    self.blueTxtField.text = [NSString stringWithFormat:@"%@",self.color.blue];
+    self.redSlider.value = 255*self.color.red.floatValue;
+    self.greenSlider.value = 255*self.color.green.floatValue;
+    self.blueSlider.value = 255*self.color.blue.floatValue;
+    self.alphaSlider.value = 100*self.color.alpha.floatValue;
 }
 
 
@@ -148,7 +159,7 @@
     
 }
 
--(BOOL) textFieldShouldReturn:(UITextField *)textField
+- (BOOL) textFieldIsValid:(UITextField *)textField
 {
     NSNumberFormatter * f = [[NSNumberFormatter alloc] init];
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
@@ -172,7 +183,6 @@
         
         [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
         
-        [textField resignFirstResponder];
         return YES;
     }
     else{
@@ -185,15 +195,30 @@
     }
 }
 
--(BOOL) textFieldShouldBeginEditing:(UITextField *)textField
+-(BOOL) textFieldShouldReturn:(UITextField *)textField
 {
-    NSLog(@"Bounds before keyboard -- %g,%g",self.view.bounds.size.height, self.view.bounds.size.width);
-    return YES;
+    if([self textFieldIsValid:textField]){
+        [textField resignFirstResponder];
+        return YES;
+    }
+    else{
+        return NO;
+    }
+}
+
+-(BOOL) textFieldShouldEndEditing:(UITextField *)textField
+{
+    if([self textFieldIsValid:textField]){
+        [textField resignFirstResponder];
+        return YES;
+    }
+    else{
+        return NO;
+    }
 }
 
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
-    NSLog(@"Bounds during keyboard -- %g,%g",self.view.bounds.size.height, self.view.bounds.size.width);
     NSTimeInterval animationDuration = 0.300000011920929;
     CGRect frame = self.view.frame;
     frame.origin.y -= kOFFSET_FOR_KEYBOARD;
