@@ -12,6 +12,7 @@
 		8124189717217C8700C995FB /* paletteDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8124189517217C8700C995FB /* paletteDB.xcdatamodeld */; };
 		812418D617217F0800C995FB /* Palettes+Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 812418D517217F0800C995FB /* Palettes+Saved.m */; };
 		812418D917217F2300C995FB /* Colors+Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 812418D817217F2300C995FB /* Colors+Saved.m */; };
+		8142BD9C17300B0C00B8CEE9 /* CTMediaBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8142BD9B17300B0C00B8CEE9 /* CTMediaBrowserVC.m */; };
 		816917671721C751002F4BF6 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 816917661721C751002F4BF6 /* Colors.m */; };
 		81C9229E171BD74200A41A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229D171BD74200A41A55 /* UIKit.framework */; };
 		81C922A0171BD74200A41A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229F171BD74200A41A55 /* Foundation.framework */; };
@@ -43,6 +44,8 @@
 		812418D517217F0800C995FB /* Palettes+Saved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Palettes+Saved.m"; sourceTree = "<group>"; };
 		812418D717217F2300C995FB /* Colors+Saved.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Colors+Saved.h"; sourceTree = "<group>"; };
 		812418D817217F2300C995FB /* Colors+Saved.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Colors+Saved.m"; sourceTree = "<group>"; };
+		8142BD9A17300B0C00B8CEE9 /* CTMediaBrowserVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTMediaBrowserVC.h; sourceTree = "<group>"; };
+		8142BD9B17300B0C00B8CEE9 /* CTMediaBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMediaBrowserVC.m; sourceTree = "<group>"; };
 		816917651721C751002F4BF6 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		816917661721C751002F4BF6 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
 		81C9229A171BD74200A41A55 /* ColorThief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorThief.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -134,6 +137,8 @@
 				81C922AC171BD74200A41A55 /* CTAppDelegate.h */,
 				81C922AD171BD74200A41A55 /* CTAppDelegate.m */,
 				81C922B5171BD74200A41A55 /* MainStoryboard.storyboard */,
+				8142BD9A17300B0C00B8CEE9 /* CTMediaBrowserVC.h */,
+				8142BD9B17300B0C00B8CEE9 /* CTMediaBrowserVC.m */,
 				81D3133F1729746900FE7A69 /* CTColorEditorController.h */,
 				81D313401729746900FE7A69 /* CTColorEditorController.m */,
 				8123D3B91725CBBE00106A45 /* CTGrabberViewController.h */,
@@ -253,6 +258,7 @@
 				81E5BC271725D21600F108AB /* CTColorTVC.m in Sources */,
 				F8CC6AD117271F6800A0AD34 /* ColorView.m in Sources */,
 				81D313411729746900FE7A69 /* CTColorEditorController.m in Sources */,
+				8142BD9C17300B0C00B8CEE9 /* CTMediaBrowserVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

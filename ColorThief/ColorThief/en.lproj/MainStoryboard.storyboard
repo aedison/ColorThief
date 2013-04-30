@@ -137,10 +137,10 @@
             </objects>
             <point key="canvasLocation" x="1222" y="-247"/>
         </scene>
-        <!--View Controller - Media Browser-->
+        <!--Media BrowserVC - Media Browser-->
         <scene sceneID="KyD-WQ-B3u">
             <objects>
-                <viewController id="3Jp-I5-FHX" sceneMemberID="viewController">
+                <viewController id="3Jp-I5-FHX" customClass="CTMediaBrowserVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9vO-7h-8Me">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -159,10 +159,10 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="2U7-ME-MAp" firstAttribute="leading" secondItem="9vO-7h-8Me" secondAttribute="leading" constant="106" id="GnU-2D-bXw"/>
-                            <constraint firstAttribute="bottom" secondItem="2U7-ME-MAp" secondAttribute="bottom" constant="110" id="xUP-Z7-hl7"/>
+                            <constraint firstAttribute="bottom" secondItem="2U7-ME-MAp" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="cIF-6r-6s7"/>
+                            <constraint firstItem="2U7-ME-MAp" firstAttribute="centerX" secondItem="9vO-7h-8Me" secondAttribute="centerX" type="default" id="olS-zc-P1A"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Media Browser" id="Reo-7o-W1e"/>
@@ -432,6 +432,56 @@
             <point key="canvasLocation" x="1133" y="807"/>
         </scene>
     </scenes>
+    <classes>
+        <class className="CTColorEditorController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTColorEditorController.h"/>
+            <relationships>
+                <relationship kind="action" name="alphaSliderChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="blueSliderChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="greenSliderChagned:" candidateClass="UISlider"/>
+                <relationship kind="action" name="redSliderChanged:" candidateClass="UISlider"/>
+                <relationship kind="action" name="resetButton:" candidateClass="UIButton"/>
+                <relationship kind="action" name="saveButton:" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="alphaSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="alphaTxtField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="blueSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="blueTxtField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="colorIV" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="colorViewLoading" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="greenSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="greenTxtField" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="paletteName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="paletteSourceIV" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="paletteSourceLoading" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="redSlider" candidateClass="UISlider"/>
+                <relationship kind="outlet" name="redTxtField" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="CTColorTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTColorTVC.h"/>
+        </class>
+        <class className="CTGrabberViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTGrabberViewController.h"/>
+        </class>
+        <class className="CTMediaBrowserVC" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTMediaBrowserVC.h"/>
+        </class>
+        <class className="CTPaletteTVC" superclassName="UITableViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTPaletteTVC.h"/>
+        </class>
+        <class className="CTViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTViewController.h"/>
+        </class>
+        <class className="CameraViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
+        </class>
+        <class className="ColorView" superclassName="UIView">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorView.h"/>
+        </class>
+        <class className="NSLayoutConstraint" superclassName="NSObject">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -1,88 +1,74 @@
 //
-//  CameraViewController.m
+//  CTMediaBrowserVC.m
 //  ColorThief
 //
-//  Created by Kevin Tabb on 4/16/13.
+//  Created by Alex Edison on 4/30/13.
 //  Copyright (c) 2013 Alex Edison and Kevin Tabb. All rights reserved.
 //
 
-#import "CameraViewController.h"
+#import "CTMediaBrowserVC.h"
 #import "Palettes+Saved.h"
-#import "CTAppDelegate.h"
 
-@interface CameraViewController () 
+@interface CTMediaBrowserVC ()
 
 @end
 
-@implementation CameraViewController
-
-- (NSManagedObjectContext *) managedObjectContext
-{
-    if(_managedObjectContext==nil){
-        CTAppDelegate* appDelegate=[[UIApplication sharedApplication] delegate];
-        _managedObjectContext = [appDelegate managedObjectContext];
-    }
-    return _managedObjectContext;
-}
+@implementation CTMediaBrowserVC
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self)
-    {
+    if (self) {
         // Custom initialization
     }
     return self;
-}
-
-- (void) initializeCamera
-{
-    // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
-    BOOL camera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
-    
-    // If there is a camera, then display the world throught the viewfinder
-    if(camera)
-    {
-        self.picker = [[UIImagePickerController alloc] init];
-        
-        // Since I'm not actually taking a picture, is a delegate function necessary?
-        self.picker.delegate = self;
-        
-        self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
-        [self presentViewController:self.picker animated:YES completion:nil];
-        
-        NSLog(@"Camera is available");
-    }
-    
-    // Otherwise, do nothing.
-    else
-    {
-        NSLog(@"No camera available");
-    }
-    
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
+}
 
+- (void)didReceiveMemoryWarning
+{
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+- (void) initializeBrowser
+{
+    // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
+    BOOL browser = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
+    
+    // If there is a camera, then display the world throught the viewfinder
+    if(browser)
+    {
+        self.picker = [[UIImagePickerController alloc] init];
+        
+        // Since I'm not actually taking a picture, is a delegate function necessary?
+        self.picker.delegate = self;
+        
+        self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        [self presentViewController:self.picker animated:YES completion:nil];
+        
+        NSLog(@"Browser is available");
+    }
+    
+    // Otherwise, do nothing.
+    else
+    {
+        NSLog(@"No photo library available");
+    }
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     if(self.picker==nil){
-       [self initializeCamera]; 
+        [self initializeBrowser];
     }
-    
-}
-
-
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 // Respond to button tap on alert view
@@ -133,7 +119,7 @@
     
     [alert addSubview:txtName];
     [alert show];
-
+    
     
 }
 
@@ -143,6 +129,5 @@
     self.picker=nil;
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 
 @end

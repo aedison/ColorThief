@@ -3,7 +3,7 @@
 //  ColorThief
 //
 //  Created by Kevin Tabb on 4/23/13.
-//  Copyright (c) 2013 Alex Edison. All rights reserved.
+//  Copyright (c) 2013 Alex Edison and Kevin Tabb. All rights reserved.
 //
 
 #import "ColorView.h"
