@@ -7,7 +7,7 @@
         <!--Navigation Controller-->
         <scene sceneID="SAO-iW-PKr">
             <objects>
-                <navigationController definesPresentationContext="YES" id="tA2-z4-RCX" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" modalTransitionStyle="flipHorizontal" id="tA2-z4-RCX" sceneMemberID="viewController">
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackTranslucent" prompted="NO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="oEH-Ht-kGL">
@@ -25,7 +25,7 @@
         <!--View Controller - Color Thief-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="CTViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="2" customClass="CTViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -89,7 +89,7 @@
         <!--Camera View Controller - Camera-->
         <scene sceneID="d22-yE-1da">
             <objects>
-                <viewController id="sUy-c4-VLg" customClass="CameraViewController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" id="sUy-c4-VLg" customClass="CameraViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="56l-yh-dxU">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -489,7 +489,7 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="JFO-KE-ZkD"/>
         <segue reference="Fc9-hc-xxT"/>
+        <segue reference="VCG-Is-fCI"/>
     </inferredMetricsTieBreakers>
 </document>

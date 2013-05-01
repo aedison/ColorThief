@@ -65,6 +65,8 @@
 
 - (void) viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
+    NSArray * vcs=self.navigationController.viewControllers;
     NSLog(@"Grabber disappeared");
 }
 

@@ -8,12 +8,22 @@
 
 #import "CTMediaBrowserVC.h"
 #import "Palettes+Saved.h"
+#import "CTAppDelegate.h"
 
 @interface CTMediaBrowserVC ()
 
 @end
 
 @implementation CTMediaBrowserVC
+
+- (NSManagedObjectContext *) managedObjectContext
+{
+    if(_managedObjectContext==nil){
+        CTAppDelegate* appDelegate=[[UIApplication sharedApplication] delegate];
+        _managedObjectContext = [appDelegate managedObjectContext];
+    }
+    return _managedObjectContext;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -38,20 +48,25 @@
 
 - (void) initializeBrowser
 {
-    // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
+    // Ask the device if we can get the PhotoLibrary
     BOOL browser = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypePhotoLibrary];
     
-    // If there is a camera, then display the world throught the viewfinder
     if(browser)
     {
+        // If we can, then make a picker for it.
         self.picker = [[UIImagePickerController alloc] init];
         
         // Since I'm not actually taking a picture, is a delegate function necessary?
         self.picker.delegate = self;
         
+        self.picker.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+        
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         
-        [self presentViewController:self.picker animated:YES completion:nil];
+        [self presentViewController:self.picker animated:YES completion:^{
+            //[self viewDidDisappear:NO];
+            //[self.picker viewWillAppear:NO];
+        }];
         
         NSLog(@"Browser is available");
     }
@@ -72,6 +87,18 @@
     }
 }
 
+- (void) viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"Browser will disappear");
+}
+
+- (void) viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    NSLog(@"Browser did disappear");
+}
+
 // Respond to button tap on alert view
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -83,24 +110,20 @@
         NSLog(@"OK Tapped.");
         if([[alertView.subviews lastObject] isKindOfClass:[UITextField class]]){
             
-            UIImage *viewImage =self.imageInfo[UIImagePickerControllerOriginalImage];
             UITextView* txtView=[alertView.subviews lastObject];
-            ALAssetsLibrary *library = [[ALAssetsLibrary alloc] init];
             NSString* paletteName=txtView.text;
+            NSURL* imageURL =self.imageInfo[UIImagePickerControllerReferenceURL];
             
-            // Request to save the image to camera roll
-            [library writeImageToSavedPhotosAlbum:[viewImage CGImage] orientation:(ALAssetOrientation)[viewImage imageOrientation] completionBlock:^(NSURL *imageURL, NSError *error){
-                if (error) {
-                    NSLog(@"error -- %@",error);
-                } else {
-                    NSLog(@"image url %@", imageURL);
-                    
-                    [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
-                }
-            }];
-            [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
+            NSLog(@"Picked image with url: %@",imageURL);
+            
+            [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+
+            
+            
+            [self performSegueWithIdentifier:@"BrowserToGrabber" sender:self];
+            [self dismissViewControllerAnimated:YES completion:NULL];
             self.picker=nil;
-            [self dismissViewControllerAnimated:YES completion:nil];
+
         }
     }
 }
@@ -126,9 +149,14 @@
 
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [self dismissViewControllerAnimated:YES completion:nil];
-    self.picker=nil;
+    
+    self.picker.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    [self dismissViewControllerAnimated:YES completion:^{
+        self.picker=nil;
+    }];
     [self.navigationController popViewControllerAnimated:YES];
+    
+
 }
 
 @end
