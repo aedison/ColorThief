@@ -8,7 +8,10 @@
         <scene sceneID="SAO-iW-PKr">
             <objects>
                 <navigationController definesPresentationContext="YES" id="tA2-z4-RCX" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="oEH-Ht-kGL">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="blackTranslucent" prompted="NO"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackTranslucent" id="oEH-Ht-kGL">
+                        <rect key="frame" x="0.0" y="0.0" width="0.0" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -24,7 +27,7 @@
             <objects>
                 <viewController id="2" customClass="CTViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UqM-LH-AA6">
@@ -88,7 +91,7 @@
             <objects>
                 <viewController id="sUy-c4-VLg" customClass="CameraViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="56l-yh-dxU">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -106,7 +109,7 @@
             <objects>
                 <viewController id="siX-BB-BDM" customClass="CTGrabberViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="KtQ-Q5-EL0" customClass="ColorView">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XFN-A6-wgh">
@@ -142,7 +145,7 @@
             <objects>
                 <viewController id="3Jp-I5-FHX" customClass="CTMediaBrowserVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9vO-7h-8Me">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2U7-ME-MAp">
@@ -179,7 +182,7 @@
             <objects>
                 <viewController id="418-Lz-nIs" customClass="CTColorEditorController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xha-4c-Pem">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SgJ-bT-HgN">
@@ -348,7 +351,7 @@
             <objects>
                 <tableViewController id="jyj-XP-XGe" customClass="CTPaletteTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="lxD-7X-Ka0">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
@@ -377,9 +380,7 @@
                             <outlet property="delegate" destination="jyj-XP-XGe" id="lGd-Yn-j9J"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="kvU-Y0-382">
-                        <barButtonItem key="rightBarButtonItem" title="New Palette" id="kjg-r4-rUk"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="kvU-Y0-382"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Idw-8H-RNa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -390,7 +391,7 @@
             <objects>
                 <tableViewController id="OfG-o9-5oD" customClass="CTColorTVC" sceneMemberID="viewController">
                     <tableView key="view" opaque="NO" clipsSubviews="YES" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="9S7-HI-Tlk">
-                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>

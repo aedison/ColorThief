@@ -39,6 +39,11 @@
     return self;
 }
 
+- (void) viewDidLoad
+{
+    
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -124,27 +129,31 @@
     return palette.paletteName;
 }
 
+- (void) setImageForPath:(NSIndexPath *)indexPath{
+    
+}
 
-- (UIImage *)imageForPath:(NSIndexPath *)indexPath{
+
+- (void)getImageForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
     Palettes* palette=self.palettes[indexPath.row];
     
     NSURL* assetURL = [NSURL URLWithString:palette.fileName];
     
-    __block UIImage *image;
+    __block UIImage *thumbImage;
     
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
     {
-        ALAssetRepresentation *rep = [myasset defaultRepresentation];
-        CGImageRef iref = [rep fullResolutionImage];
-        if (iref) {
-            image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:[rep orientation]];
+        CGImageRef thumbRef = [myasset thumbnail];
+        if (thumbRef){
+            thumbImage = [UIImage imageWithCGImage:thumbRef];
+            cell.imageView.image = thumbImage;
         }
     };
     
     //
     ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
     {
-        NSLog(@"Cant get image - %@",[myerror localizedDescription]);
+        NSLog(@"Cant get image - %@",myerror);
     };
     
     if(palette.fileName && [palette.fileName length])
@@ -154,8 +163,6 @@
                        resultBlock:resultblock
                       failureBlock:failureblock];
     }
-    
-    return image;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -165,7 +172,25 @@
     
     // Configure the cell...
     cell.textLabel.text = [self titleForPath:indexPath];
-    cell.imageView.image= [self imageForPath:indexPath];
+    
+    //Drop in a placeholder image for the cell that can be replaced
+    //by our thumbnail later
+    CGSize size= CGSizeMake(75., 75.);
+    UIColor* color = [UIColor whiteColor];
+    
+    CGRect rect = CGRectMake(0, 0, size.width, size.height);
+    UIGraphicsBeginImageContextWithOptions(rect.size,NO,0.0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context,
+                                   color.CGColor);
+    CGContextFillRect(context, rect);
+    
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    //Go get the real image for the cell from the asset library
+    [self getImageForCell:cell atIndexPath:indexPath];
     
     return cell;
 }

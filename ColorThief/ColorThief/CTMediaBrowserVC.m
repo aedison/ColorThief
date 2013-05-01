@@ -50,6 +50,7 @@
         self.picker.delegate = self;
         
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        
         [self presentViewController:self.picker animated:YES completion:nil];
         
         NSLog(@"Browser is available");
