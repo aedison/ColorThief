@@ -117,8 +117,12 @@
 
 - (NSString *)titleForPath:(NSIndexPath *)indexPath
 {
+    //Need to add some more code to make sure that "0" gets printed as "00"
     Colors* colorForCell=self.colors[indexPath.row];
-    NSString* colorDescription=[NSString stringWithFormat:@"%.2g, %.2g, %.2g",colorForCell.red.floatValue,colorForCell.green.floatValue,colorForCell.blue.floatValue];
+    NSString* colorDescription=[[NSString stringWithFormat:@"%x%x%x",
+                                [NSNumber numberWithFloat: colorForCell.red.floatValue*255].integerValue,
+                                [NSNumber numberWithFloat:colorForCell.green.floatValue*255].integerValue,
+                                [NSNumber numberWithFloat:colorForCell.blue.floatValue*255].integerValue] uppercaseString];
     return colorDescription;
 }
 

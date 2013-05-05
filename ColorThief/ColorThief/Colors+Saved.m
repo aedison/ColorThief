@@ -39,6 +39,7 @@
 + (Colors *) newColorFromUIColor:(UIColor *)color
                        inContext:(NSManagedObjectContext *)managedObjectContext
 {
+    //Need to write some validation methods
     Colors* tempColor= [NSEntityDescription insertNewObjectForEntityForName:@"Color"
                                                      inManagedObjectContext:managedObjectContext];
 

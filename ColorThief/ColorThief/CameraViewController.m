@@ -40,24 +40,26 @@
     // Create a bool variable "camera" and call isSourceTypeAvailable to see if camera exists on device
     BOOL camera = [UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera];
     
-    // If there is a camera, then display the world throught the viewfinder
+    // If there is a camera, then display it
     if(camera)
     {
+        self.cameraWarning.hidden=YES;
+        
         self.picker = [[UIImagePickerController alloc] init];
         
-        // Since I'm not actually taking a picture, is a delegate function necessary?
         self.picker.delegate = self;
         
         self.picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        self.picker.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
         [self presentViewController:self.picker animated:YES completion:nil];
         
-        NSLog(@"Camera is available");
+        
     }
     
-    // Otherwise, do nothing.
+    // Otherwise, show the warning on black background
     else
     {
-        NSLog(@"No camera available");
+        self.cameraWarning.hidden=NO;
     }
     
 }
@@ -90,7 +92,10 @@
 {
     if (buttonIndex == 0) {
         NSLog(@"Cancel Tapped.");
-        [self imagePickerControllerDidCancel:self.picker];
+        
+        //Need to test this with camera to see if it returns to an active camera/retake option
+        [alertView resignFirstResponder];
+        //[self imagePickerControllerDidCancel:self.picker];
     }
     else if (buttonIndex == 1) {
         NSLog(@"OK Tapped.");

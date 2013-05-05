@@ -9,6 +9,7 @@
 #import "CTMediaBrowserVC.h"
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
+#import "CTPaletteTVC.h"
 
 @interface CTMediaBrowserVC ()
 
@@ -56,25 +57,25 @@
         // If we can, then make a picker for it.
         self.picker = [[UIImagePickerController alloc] init];
         
-        // Since I'm not actually taking a picture, is a delegate function necessary?
         self.picker.delegate = self;
         
         self.picker.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
         
         self.picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
         
+        
         [self presentViewController:self.picker animated:YES completion:^{
             //[self viewDidDisappear:NO];
             //[self.picker viewWillAppear:NO];
         }];
         
-        NSLog(@"Browser is available");
+        self.mediaWarning.hidden = YES;
     }
     
-    // Otherwise, do nothing.
+    // Otherwise, tell the user that the library is unavailable
     else
     {
-        NSLog(@"No photo library available");
+        self.mediaWarning.hidden = NO;
     }
     
 }
@@ -99,15 +100,49 @@
     NSLog(@"Browser did disappear");
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if([segue.identifier isEqualToString:@"browserToPalettes"] && [segue.destinationViewController isKindOfClass:[CTPaletteTVC class]]){
+        CTPaletteTVC* paletteList = segue.destinationViewController;
+        paletteList.managedObjectContext = self.managedObjectContext;
+        paletteList.fetchingFromImageFileName = [self.imageInfo[UIImagePickerControllerReferenceURL] absoluteString];
+    }
+}
+
+
 // Respond to button tap on alert view
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         NSLog(@"Cancel Tapped.");
-        [self imagePickerControllerDidCancel:self.picker];
+        [alertView resignFirstResponder];
+        //[self imagePickerControllerDidCancel:self.picker];
     }
-    else if (buttonIndex == 1) {
-        NSLog(@"OK Tapped.");
+    else if(buttonIndex == 1 && [alertView.title isEqualToString:@"New Palette?"]){
+        //load up a list of saved palettes
+        
+        [self performSegueWithIdentifier:@"browserToPalettes" sender:self];
+        [self dismissViewControllerAnimated:YES completion:NULL];
+        self.picker=nil;
+        
+    }
+    else if(buttonIndex ==2 && [alertView.title isEqualToString:@"New Palette?"]){
+        //throw an alert to ask for the new palette name
+        NSLog(@"New Tapped.");
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Palette Name"
+                                                        message:@"Name your new palette" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
+        UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
+        txtName.text=@"";
+        txtName.placeholder = @"Enter palette name";
+        [txtName setBackgroundColor:[UIColor whiteColor]];
+        [txtName setAutocorrectionType:UITextAutocorrectionTypeNo];
+        [txtName becomeFirstResponder];
+        
+        [alert addSubview:txtName];
+        [alert show];
+    }
+    else if (buttonIndex == 1 && [alertView.title isEqualToString:@"Palette Name"]) {
+        
         if([[alertView.subviews lastObject] isKindOfClass:[UITextField class]]){
             
             UITextView* txtView=[alertView.subviews lastObject];
@@ -116,11 +151,11 @@
             
             NSLog(@"Picked image with url: %@",imageURL);
             
-            [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+            Palettes* paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
 
             
             
-            [self performSegueWithIdentifier:@"BrowserToGrabber" sender:self];
+            [self performSegueWithIdentifier:@"BrowserNewToGrabber" sender:self];
             [self dismissViewControllerAnimated:YES completion:NULL];
             self.picker=nil;
 
@@ -129,34 +164,35 @@
 }
 
 
+//Respond to a completed image selection
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     self.imageInfo=info;
     
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New palette name" message:@"/n" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok",nil];
-    UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
-    txtName.text=@"";
-    txtName.placeholder = @"Enter palette name";
-    [txtName setBackgroundColor:[UIColor whiteColor]];
-    [txtName setAutocorrectionType:UITextAutocorrectionTypeNo];
-    [txtName becomeFirstResponder];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"New Palette?" message:@"Would you like to add to a saved palette, or make a new one?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Saved",@"New",nil];
     
-    [alert addSubview:txtName];
     [alert show];
     
     
 }
 
+//Respond to a cancelled image selection
 - (void) imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    
-    self.picker.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
-    [self dismissViewControllerAnimated:YES completion:^{
-        self.picker=nil;
-    }];
+
+    [self dismissViewControllerAnimated:YES completion:NULL];
     [self.navigationController popViewControllerAnimated:YES];
     
+    
 
+}
+
+//Respond to the ImagePickers Navigation controller
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated {
+    //Recolor the nav bar to match the rest of the app
+    navigationController.navigationBar.translucent = NO;
 }
 
 @end

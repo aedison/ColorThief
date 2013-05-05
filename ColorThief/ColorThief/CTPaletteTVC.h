@@ -13,5 +13,6 @@
 
 @property (nonatomic, retain) NSMutableArray *palettes;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, strong) NSString *fetchingFromImageFileName;
 
 @end

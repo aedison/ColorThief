@@ -63,11 +63,4 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSArray * vcs=self.navigationController.viewControllers;
-    NSLog(@"Grabber disappeared");
-}
-
 @end

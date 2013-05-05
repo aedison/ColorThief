@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CTViewController : UIViewController
+@interface CTRootVC : UIViewController <UINavigationControllerDelegate>
 
 @end

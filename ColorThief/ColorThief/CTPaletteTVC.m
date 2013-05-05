@@ -8,18 +8,17 @@
 
 #import "CTPaletteTVC.h"
 #import "CTColorTVC.h"
-#import "Palettes.h"
-#import "Colors.h"
 #import "Colors+Saved.h"
-#import "Palettes.h"
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
+#import "CTGrabberViewController.h"
 
 @interface CTPaletteTVC ()
 
 @end
 
 @implementation CTPaletteTVC
+
 
 - (NSManagedObjectContext *) managedObjectContext
 {
@@ -41,14 +40,12 @@
 
 - (void) viewDidLoad
 {
-    
+    [super viewDidLoad];
 }
 
-- (void)viewWillAppear:(BOOL)animated
+
+- (void) initializeDataWithTestCase:(BOOL) testing
 {
-    [super viewWillAppear:animated];
-    
-    self.title=@"Palettes";
     NSError *error = nil;
     
     
@@ -61,6 +58,11 @@
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     [request setSortDescriptors:sortDescriptors];
     
+    if(self.fetchingFromImageFileName != nil){
+        NSPredicate* predicate = [NSPredicate predicateWithFormat:@"fileName = %@",self.fetchingFromImageFileName];
+        [request setPredicate:predicate];
+    }
+    
     
     NSMutableArray *mutableFetchResults = [[self.managedObjectContext executeFetchRequest:request error:&error] mutableCopy];
     if (mutableFetchResults == nil) {
@@ -69,7 +71,7 @@
     self.palettes=mutableFetchResults;
     
     // Testing Code
-    if ([self.palettes count]==0){
+    if (testing){
         //For testing purposes
         Palettes* newPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal1" andFileName:[NSURL URLWithString:@"Test1"]];
         [newPalette addPaletteColorsObject:[Colors newColorFromUIColor:[UIColor colorWithRed:.5 green:1 blue:.75 alpha:.35] inContext:self.managedObjectContext]];
@@ -80,11 +82,22 @@
         if (![self.managedObjectContext save:&error]) {
             NSLog(@"Error during color save: %@",error.description);
         }
-
+        
         [self.palettes insertObject:newPalette atIndex:0];
         [self.palettes insertObject:otherNewPalette atIndex:0];
     }
     //END testing code
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    self.title=@"Palettes";
+    
+    [self initializeDataWithTestCase:NO];
+    
 
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -106,6 +119,11 @@
             CTColorTVC* colorTVC= segue.destinationViewController;
             colorTVC.palette=self.palettes[indexPath.row];
         }
+    }
+    if([segue.identifier isEqualToString:@"paletteListToGrabber"] && [segue.destinationViewController isKindOfClass:[CTGrabberViewController class]]){
+        // Pass the info to the color grabber.  I dont know what this needs yet --ACE
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        CTGrabberViewController* grabber = segue.destinationViewController;
     }
 }
 
@@ -129,9 +147,6 @@
     return palette.paletteName;
 }
 
-- (void) setImageForPath:(NSIndexPath *)indexPath{
-    
-}
 
 
 - (void)getImageForCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
@@ -264,5 +279,7 @@
      [self.navigationController pushViewController:detailViewController animated:YES];
      */
 }
+
+
 
 @end

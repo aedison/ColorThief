@@ -70,18 +70,18 @@
     self.redTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.red floatValue]*255];
     self.greenTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.green floatValue]*255];
     self.blueTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.blue floatValue]*255];
-    self.alphaTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.alpha floatValue]];
+    self.alphaTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.alpha floatValue]*255];
     self.paletteName.text = self.palette.paletteName;
     
     self.redSlider.maximumValue=255;
     self.greenSlider.maximumValue=255;
     self.blueSlider.maximumValue=255;
-    self.alphaSlider.maximumValue=100;
+    self.alphaSlider.maximumValue=255;
     
     self.redSlider.value = 255*self.color.red.floatValue;
     self.greenSlider.value = 255*self.color.green.floatValue;
     self.blueSlider.value = 255*self.color.blue.floatValue;
-    self.alphaSlider.value = 100*self.color.alpha.floatValue;
+    self.alphaSlider.value = 255*self.color.alpha.floatValue;
     
     self.redTxtField.delegate=self;
     self.greenTxtField.delegate=self;
@@ -119,8 +119,8 @@
 
 - (IBAction)alphaSliderChanged:(UISlider *)sender
 {
-    self.alphaTxtField.text=[NSString stringWithFormat:@"%.2g", sender.value/100];
-    self.color.alpha = [NSNumber numberWithFloat: sender.value/100];
+    self.alphaTxtField.text=[NSString stringWithFormat:@"%.3g", sender.value];
+    self.color.alpha = [NSNumber numberWithFloat: sender.value/255];
     [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
 }
 
@@ -142,12 +142,12 @@
     self.redTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.red floatValue]*255];
     self.greenTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.green floatValue]*255];
     self.blueTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.blue floatValue]*255];
-    self.alphaTxtField.text = [NSString stringWithFormat:@"%.2g",[self.color.alpha floatValue]];
+    self.alphaTxtField.text = [NSString stringWithFormat:@"%.3g",[self.color.alpha floatValue]*255];
     
     self.redSlider.value = 255*self.color.red.floatValue;
     self.greenSlider.value = 255*self.color.green.floatValue;
     self.blueSlider.value = 255*self.color.blue.floatValue;
-    self.alphaSlider.value = 100*self.color.alpha.floatValue;
+    self.alphaSlider.value = 255*self.color.alpha.floatValue;
 }
 
 
@@ -165,20 +165,25 @@
     [f setNumberStyle:NSNumberFormatterDecimalStyle];
     NSNumber * enteredNumber = [f numberFromString:textField.text];
     
-    if(enteredNumber && [enteredNumber floatValue] <= 1 && [enteredNumber floatValue]>=0){
+    if(enteredNumber && [enteredNumber floatValue] <= 255 && [enteredNumber floatValue]>=0){
         
         if([textField isEqual:self.redTxtField]){
-            self.color.red = enteredNumber;
-            self.redSlider.value = 100*self.color.red.floatValue;
+            self.color.red = [NSNumber numberWithFloat:enteredNumber.floatValue/255];
+            self.redSlider.value = 255*self.color.red.floatValue;
         }
         else if([textField isEqual:self.greenTxtField]){
-            self.color.green = enteredNumber;
-            self.greenSlider.value = 100*self.color.green.floatValue;
+            self.color.green = [NSNumber numberWithFloat:enteredNumber.floatValue/255];
+            self.greenSlider.value = 255*self.color.green.floatValue;
         }
         else if([textField isEqual:self.blueTxtField])
         {
-            self.color.blue=enteredNumber;
-            self.blueSlider.value = 100*self.color.blue.floatValue;
+            self.color.blue=[NSNumber numberWithFloat:enteredNumber.floatValue/255];
+            self.blueSlider.value = 255*self.color.blue.floatValue;
+        }
+        else if([textField isEqual:self.alphaTxtField])
+        {
+            self.color.alpha=[NSNumber numberWithFloat:enteredNumber.floatValue/255];
+            self.alphaSlider.value = 255*self.color.alpha.floatValue;
         }
         
         [self loadImage:[self.color imageFromSelf] toView:self.colorIV stoppingIndicator:self.colorViewLoading];
@@ -188,7 +193,7 @@
     else{
         NSLog(@"Number out of bounds");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Number out of bounds"
-                                                        message:@"Valid entries are numbers between 0 and 1"
+                                                        message:@"Valid entries are numbers between 0 and 255"
                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         return NO;
@@ -217,6 +222,8 @@
     }
 }
 
+
+//Need to change the keyboard sliding here
 -(void) textFieldDidBeginEditing:(UITextField *)textField
 {
     NSTimeInterval animationDuration = 0.300000011920929;
