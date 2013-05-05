@@ -32,7 +32,8 @@
     if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded))
     {
         // set scale to appropriate value according to pinch and redraw
-        _fScale += gesture.scale;
+        NSLog(@"%f", gesture.scale);
+        _fScale += (gesture.scale - 1);
         gesture.scale = 1;
         [self setNeedsDisplay];
     }
@@ -57,6 +58,15 @@
         _fYOffset = pTranslate.y;
         [self setNeedsDisplay];
     }
+    /* if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
+        self.transform = CGAffineTransformScale(self.transform, gesture.scale, gesture.scale);
+        [gesture setScale:1];
+    } */
+    
+    /* if ([pinchGest state] == UIGestureRecognizerStateBegan || [pinchGest state] == UIGestureRecognizerStateChanged) {
+        [pinchGest view].transform = CGAffineTransformScale([[pinchGest view] transform], [pinchGest scale], [pinchGest scale]);
+        [pinchGest setScale:1];
+    } */
 }
 
 // Only override drawRect: if you perform custom drawing.
@@ -66,10 +76,10 @@
     // Drawing code
     // Redraw sample background image
     UIGraphicsBeginImageContext(self.frame.size);
-    
+    // NSLog(@"%f", _fScale);
     // fScale linearly modifies the size of the rect in which the image is drawn
     // By incrementing fScale, the image should be drawn larger (thus, zooming in)
-    CGRect rTempRect = CGRectMake(self.bounds.origin.x + _fXOffSet, self.bounds.origin.y + _fYOffset, self.bounds.size.width + _fScale, self.bounds.size.height + _fScale);
+    CGRect rTempRect = CGRectMake(self.bounds.origin.x + _fXOffSet, self.bounds.origin.y + _fYOffset, self.bounds.size.width * _fScale, self.bounds.size.height * _fScale);
     
     [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:rTempRect];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
