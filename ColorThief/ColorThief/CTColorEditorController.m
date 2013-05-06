@@ -9,6 +9,7 @@
 #import "CTColorEditorController.h"
 #import "Palettes+Saved.h"
 #import "Colors+Saved.h"
+#import "CTKeyboardHandler.h"
 
 #define kOFFSET_FOR_KEYBOARD 100.0
 
@@ -33,8 +34,18 @@
 	// Do any additional setup after loading the view.
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    self.keyboard.delegate = nil;
+    self.keyboard = nil;
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    
+    self.keyboard = [[CTKeyboardHandler alloc] init];
+    self.keyboard.delegate = self;
     
     [self.paletteSourceLoading startAnimating];
     [self.colorViewLoading startAnimating];
@@ -88,6 +99,14 @@
     self.blueTxtField.delegate=self;
     self.alphaTxtField.delegate=self;
     
+    
+    
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    self.keyboardYOffset = self.blueTxtField.frame.origin.y;
 }
 
 - (void)didReceiveMemoryWarning
@@ -128,6 +147,7 @@
 {
     // Commit the change.
     NSError *error = nil;
+    self.color.idKey=[[self.color hexString] stringByAppendingString:self.palette.paletteName];
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Could not save color -- %@",error);
     }
@@ -211,9 +231,22 @@
     }
 }
 
+- (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if(self.keyboard != nil){
+        self.keyboardYOffset = abs(self.keyboardYOffset);
+        return YES;
+    }
+    else{
+        NSLog(@"self.keyboard not set correctly");
+        return NO;
+    }
+}
+
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField
 {
     if([self textFieldIsValid:textField]){
+        self.keyboardYOffset = -self.keyboardYOffset;
         [textField resignFirstResponder];
         return YES;
     }
@@ -223,28 +256,12 @@
 }
 
 
-//Need to change the keyboard sliding here
--(void) textFieldDidBeginEditing:(UITextField *)textField
-{
-    NSTimeInterval animationDuration = 0.300000011920929;
-    CGRect frame = self.view.frame;
-    frame.origin.y -= kOFFSET_FOR_KEYBOARD;
-    frame.size.height += kOFFSET_FOR_KEYBOARD;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
-    self.view.frame = frame;
-    [UIView commitAnimations];
-}
+//Keyboard handler delegate method
 
-- (void) textFieldDidEndEditing:(UITextField *)textField
+-(void) keyboardSizeChanged:(CGSize)delta
 {
-    NSTimeInterval animationDuration = 0.300000011920929;
     CGRect frame = self.view.frame;
-    frame.origin.y += kOFFSET_FOR_KEYBOARD;
-    frame.size.height -= kOFFSET_FOR_KEYBOARD;
-    [UIView beginAnimations:@"ResizeForKeyboard" context:nil];
-    [UIView setAnimationDuration:animationDuration];
+    frame.origin.y -= delta.height-self.keyboardYOffset;
     self.view.frame = frame;
-    [UIView commitAnimations];
 }
 @end

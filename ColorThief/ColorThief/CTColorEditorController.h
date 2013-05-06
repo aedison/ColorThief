@@ -9,10 +9,11 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
+#import "CTKeyboardHandlerDelegate.h"
 
-@class Colors,Palettes;
+@class Colors,Palettes,CTKeyboardHandler;
 
-@interface CTColorEditorController : UIViewController <UITextFieldDelegate>
+@interface CTColorEditorController : UIViewController <UITextFieldDelegate,CTKeyboardHandlerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *colorIV;
 @property (weak, nonatomic) IBOutlet UIImageView *paletteSourceIV;
@@ -40,6 +41,9 @@
 @property (strong, nonatomic) Palettes* palette;
 @property (strong, nonatomic) UIImage* imageForPalette;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+@property (strong, nonatomic) CTKeyboardHandler* keyboard;
+@property (nonatomic) int keyboardYOffset;
 
 - (void) loadImage:(UIImage *) image
             toView:(UIImageView *)imageView

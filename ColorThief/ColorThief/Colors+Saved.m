@@ -7,6 +7,7 @@
 //
 
 #import "Colors+Saved.h"
+#import "Palettes.h"
 
 @implementation Colors (Saved)
 
@@ -36,28 +37,104 @@
     return img;
 }
 
-+ (Colors *) newColorFromUIColor:(UIColor *)color
-                       inContext:(NSManagedObjectContext *)managedObjectContext
+- (NSString *) hexString
 {
-    //Need to write some validation methods
-    Colors* tempColor= [NSEntityDescription insertNewObjectForEntityForName:@"Color"
-                                                     inManagedObjectContext:managedObjectContext];
+    NSString *stringForRed,*stringForGreen,*stringForBlue;
+    stringForRed = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:self.red.floatValue*255].integerValue];
+    stringForGreen = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:self.green.floatValue*255].integerValue];
+    stringForBlue = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:self.blue.floatValue*255].integerValue];
+    
+    if([stringForRed length]==1){
+        stringForRed = [@"0" stringByAppendingString:stringForRed];
+    }
+    if([stringForGreen length]==1){
+        stringForGreen = [@"0" stringByAppendingString:stringForGreen];
+    }
+    if([stringForBlue length]==1){
+        stringForBlue = [@"0" stringByAppendingString:stringForBlue];
+    }
+    NSString* colorDescription=[NSString stringWithFormat:@"%@%@%@",stringForRed,stringForGreen,stringForBlue];
+    return colorDescription;
+}
 
++ (NSString *)hexStringFromUIColor:(UIColor *)color
+{
     CGFloat tempRed=0;
     CGFloat tempGreen=0;
     CGFloat tempBlue=0;
     CGFloat tempAlpha=0;
-    if([color getRed:&tempRed green:&tempGreen blue:&tempBlue alpha:&tempAlpha]){
-        tempColor.red=[NSNumber numberWithFloat:tempRed];
-        tempColor.green = [NSNumber numberWithFloat:tempGreen];
-        tempColor.blue = [NSNumber numberWithFloat:tempBlue];
-        tempColor.alpha = [NSNumber numberWithFloat:tempAlpha];
-    }else {
+    if(![color getRed:&tempRed green:&tempGreen blue:&tempBlue alpha:&tempAlpha]){
         NSLog(@"Could not retrieve color data from UIColor");
     }
+    NSString *stringForRed,*stringForGreen,*stringForBlue;
+    stringForRed = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:tempRed*255].integerValue];
+    stringForGreen = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:tempGreen*255].integerValue];
+    stringForBlue = [NSString stringWithFormat:@"%X",[NSNumber numberWithFloat:tempBlue*255].integerValue];
+    
+    if([stringForRed length]==1){
+        stringForRed = [@"0" stringByAppendingString:stringForRed];
+    }
+    if([stringForGreen length]==1){
+        stringForGreen = [@"0" stringByAppendingString:stringForGreen];
+    }
+    if([stringForBlue length]==1){
+        stringForBlue = [@"0" stringByAppendingString:stringForBlue];
+    }
+    NSString* colorDescription=[NSString stringWithFormat:@"%@%@%@",stringForRed,stringForGreen,stringForBlue];
+    return colorDescription;
+}
+
++ (Colors *) newColorFromUIColor:(UIColor *)color
+                       inContext:(NSManagedObjectContext *)managedObjectContext
+                       inPalette:(Palettes *)palette
+{
+    Colors* tempColor = nil;
+    
+    NSString* pName = nil;
+    NSString* colorHex = [Colors hexStringFromUIColor:color];
+    NSString *key = nil;
+    
+    pName = palette.paletteName;
+    key = [colorHex stringByAppendingString:pName];
+
     NSError *error = nil;
-    if (![managedObjectContext save:&error]) {
-        NSLog(@"Error during color save: %@",error.description);
+    
+    //Need to write some validation methods here
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Color"];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idKey == %@",key];
+    NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"red" ascending:YES selector:@selector(caseInsensitiveCompare:)];
+    [request setPredicate:predicate];
+    [request setSortDescriptors:[NSArray arrayWithObject:sort]];
+    NSArray *results = [managedObjectContext executeFetchRequest:request error:&error];
+    //Need to write some validation methods
+    if([results count]==0){
+        tempColor= [NSEntityDescription insertNewObjectForEntityForName:@"Color"
+                                                         inManagedObjectContext:managedObjectContext];
+        CGFloat tempRed=0;
+        CGFloat tempGreen=0;
+        CGFloat tempBlue=0;
+        CGFloat tempAlpha=0;
+        if([color getRed:&tempRed green:&tempGreen blue:&tempBlue alpha:&tempAlpha]){
+            tempColor.red=[NSNumber numberWithFloat:tempRed];
+            tempColor.green = [NSNumber numberWithFloat:tempGreen];
+            tempColor.blue = [NSNumber numberWithFloat:tempBlue];
+            tempColor.alpha = [NSNumber numberWithFloat:tempAlpha];
+        }
+        else{
+            NSLog(@"Could not retrieve color data from UIColor");
+        }
+        tempColor.sourcePalette = palette;
+        tempColor.idKey = key;
+        [palette addPaletteColorsObject:tempColor];
+        if (![managedObjectContext save:&error]) {
+            NSLog(@"Error during color save: %@",error.description);
+        }
+    }
+    else if ([results count]==1){
+        tempColor=results[0];
+    }
+    else{
+        NSLog(@"Color fetch returned incorrect number of entries");
     }
     return tempColor;
 

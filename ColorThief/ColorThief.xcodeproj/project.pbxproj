@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8107778617382A7100D8B42B /* CTKeyboardHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8107778517382A7100D8B42B /* CTKeyboardHandler.m */; };
 		8123D3B81725AD8B00106A45 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8123D3B71725AD8B00106A45 /* AssetsLibrary.framework */; };
 		8123D3BB1725CBBE00106A45 /* CTGrabberViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8123D3BA1725CBBE00106A45 /* CTGrabberViewController.m */; };
 		8124189717217C8700C995FB /* paletteDB.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8124189517217C8700C995FB /* paletteDB.xcdatamodeld */; };
@@ -36,6 +37,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8107778417382A7100D8B42B /* CTKeyboardHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTKeyboardHandler.h; sourceTree = "<group>"; };
+		8107778517382A7100D8B42B /* CTKeyboardHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTKeyboardHandler.m; sourceTree = "<group>"; };
+		8107778717382B5800D8B42B /* CTKeyboardHandlerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CTKeyboardHandlerDelegate.h; sourceTree = "<group>"; };
 		8123D3B71725AD8B00106A45 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		8123D3B91725CBBE00106A45 /* CTGrabberViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTGrabberViewController.h; sourceTree = "<group>"; };
 		8123D3BA1725CBBE00106A45 /* CTGrabberViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTGrabberViewController.m; sourceTree = "<group>"; };
@@ -96,6 +100,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8107778917382B6600D8B42B /* KeyboardHandler */ = {
+			isa = PBXGroup;
+			children = (
+				8107778417382A7100D8B42B /* CTKeyboardHandler.h */,
+				8107778717382B5800D8B42B /* CTKeyboardHandlerDelegate.h */,
+				8107778517382A7100D8B42B /* CTKeyboardHandler.m */,
+			);
+			name = KeyboardHandler;
+			sourceTree = "<group>";
+		};
 		817E8FB51736FA03000E99D0 /* TVCs */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +193,7 @@
 		81C922A3171BD74200A41A55 /* ColorThief */ = {
 			isa = PBXGroup;
 			children = (
+				8107778917382B6600D8B42B /* KeyboardHandler */,
 				817E8FB91736FA8A000E99D0 /* Custom VCs */,
 				817E8FB81736FA37000E99D0 /* Database Files */,
 				817E8FB71736FA1C000E99D0 /* Media Handlers */,
@@ -291,6 +306,7 @@
 				F8CC6AD117271F6800A0AD34 /* ColorView.m in Sources */,
 				81D313411729746900FE7A69 /* CTColorEditorController.m in Sources */,
 				8142BD9C17300B0C00B8CEE9 /* CTMediaBrowserVC.m in Sources */,
+				8107778617382A7100D8B42B /* CTKeyboardHandler.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

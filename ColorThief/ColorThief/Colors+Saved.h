@@ -12,7 +12,9 @@
 
 - (UIColor *) associatedUIColor;
 - (UIImage *) imageFromSelf;
+- (NSString *) hexString;
 + (Colors *) newColorFromUIColor:(UIColor *)color
-                   inContext:(NSManagedObjectContext *)managedObjectContext;
+                       inContext:(NSManagedObjectContext *)managedObjectContext
+                       inPalette:(Palettes *)palette;
 
 @end

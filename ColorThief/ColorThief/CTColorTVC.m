@@ -48,20 +48,20 @@
     
     //Testing Code
     
-    if ([self.colors count]==0){
-        //For testing purposes
-        Colors* newColor=[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext];
-        Colors* otherNewColor=[Colors newColorFromUIColor:[UIColor blueColor] inContext:self.managedObjectContext];
-        
-        [self.palette addPaletteColors:[NSSet setWithObjects:newColor, otherNewColor, nil]];
-        
-        if (![self.managedObjectContext save:&error]) {
-            NSLog(@"Error during color save: %@",error.description);
-        }
-        
-        [self.colors insertObject:newColor atIndex:0];
-        [self.colors insertObject:otherNewColor atIndex:0];
-    }
+//    if ([self.colors count]==0){
+//        //For testing purposes
+//        Colors* newColor=[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext inPalette:self.palette];
+//        Colors* otherNewColor=[Colors newColorFromUIColor:[UIColor blueColor] inContext:self.managedObjectContext inPalette:self.palette];
+//        
+//        [self.palette addPaletteColors:[NSSet setWithObjects:newColor, otherNewColor, nil]];
+//        
+//        if (![self.managedObjectContext save:&error]) {
+//            NSLog(@"Error during color save: %@",error.description);
+//        }
+//        
+//        [self.colors insertObject:newColor atIndex:0];
+//        [self.colors insertObject:otherNewColor atIndex:0];
+//    }
     //END testing code
     
     
@@ -95,8 +95,7 @@
         if([segue.destinationViewController isKindOfClass:[CTColorEditorController class]]){
             CTColorEditorController* colorEditor = segue.destinationViewController;
             colorEditor.palette = self.palette;
-            colorEditor.color=[Colors newColorFromUIColor:[UIColor colorWithRed:0 green:0 blue:0 alpha:1] inContext:self.managedObjectContext];
-            [self.palette addPaletteColorsObject:colorEditor.color];
+            colorEditor.color=[Colors newColorFromUIColor:[UIColor colorWithRed:0 green:1/255.0 blue:0 alpha:1] inContext:self.managedObjectContext inPalette:self.palette];
             colorEditor.managedObjectContext=self.managedObjectContext;
         }
         
@@ -119,11 +118,7 @@
 {
     //Need to add some more code to make sure that "0" gets printed as "00"
     Colors* colorForCell=self.colors[indexPath.row];
-    NSString* colorDescription=[[NSString stringWithFormat:@"%x%x%x",
-                                [NSNumber numberWithFloat: colorForCell.red.floatValue*255].integerValue,
-                                [NSNumber numberWithFloat:colorForCell.green.floatValue*255].integerValue,
-                                [NSNumber numberWithFloat:colorForCell.blue.floatValue*255].integerValue] uppercaseString];
-    return colorDescription;
+    return [colorForCell hexString];
 }
 
 

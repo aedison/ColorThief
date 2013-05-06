@@ -74,10 +74,10 @@
     if (testing){
         //For testing purposes
         Palettes* newPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal1" andFileName:[NSURL URLWithString:@"Test1"]];
-        [newPalette addPaletteColorsObject:[Colors newColorFromUIColor:[UIColor colorWithRed:.5 green:1 blue:.75 alpha:.35] inContext:self.managedObjectContext]];
+        [Colors newColorFromUIColor:[UIColor colorWithRed:.5 green:1 blue:.75 alpha:.35] inContext:self.managedObjectContext inPalette:newPalette];
         
         Palettes* otherNewPalette= [Palettes newPaletteInContext:self.managedObjectContext withName:@"testPal2" andFileName:[NSURL URLWithString:@"Test2"]];
-        [otherNewPalette addPaletteColorsObject:[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext]];
+        [Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext inPalette:otherNewPalette];
         
         if (![self.managedObjectContext save:&error]) {
             NSLog(@"Error during color save: %@",error.description);

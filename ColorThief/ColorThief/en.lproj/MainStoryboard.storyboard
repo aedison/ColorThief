@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -283,20 +283,20 @@
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XqG-Pk-Ppi">
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Red" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="h10-nW-8ht">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Red" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="h10-nW-8ht">
                                         <constraints>
                                             <constraint firstAttribute="width" constant="77" id="SqE-7h-92z"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Green" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NAI-t1-z1a">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Green" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="NAI-t1-z1a">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                     </textField>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Blue" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dGH-Ty-hce">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Blue" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="dGH-Ty-hce">
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" keyboardAppearance="alert" returnKeyType="done"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation" returnKeyType="done"/>
                                     </textField>
                                     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="47P-25-ffl">
                                         <color key="minimumTrackTintColor" red="1" green="0.067373478350000002" blue="0.071358017029999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -381,7 +381,6 @@
                                     <constraint firstItem="h10-nW-8ht" firstAttribute="top" secondItem="XqG-Pk-Ppi" secondAttribute="top" type="default" id="qcU-m2-7yn"/>
                                     <constraint firstAttribute="trailing" secondItem="47P-25-ffl" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="rHh-4s-SzQ"/>
                                     <constraint firstItem="47P-25-ffl" firstAttribute="leading" secondItem="h10-nW-8ht" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="sPY-QV-g9l"/>
-                                    <constraint firstItem="TEn-Xi-o43" firstAttribute="top" secondItem="Iib-QZ-x7O" secondAttribute="top" type="default" id="sS5-0U-3KT"/>
                                     <constraint firstItem="U5j-IW-ibA" firstAttribute="leading" secondItem="dGH-Ty-hce" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="w4C-W0-tQ2"/>
                                     <constraint firstItem="U5j-IW-ibA" firstAttribute="leading" secondItem="q2S-Lj-KnD" secondAttribute="leading" type="default" id="wX0-Ow-jro"/>
                                     <constraint firstItem="Iib-QZ-x7O" firstAttribute="leading" secondItem="XqG-Pk-Ppi" secondAttribute="leading" type="default" id="xB2-fH-vN9"/>

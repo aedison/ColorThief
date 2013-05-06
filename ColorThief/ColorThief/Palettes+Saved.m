@@ -30,7 +30,7 @@
     
     //Need to write some validation methods here
     NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"Palette"];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idKey = %@",key];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"idKey == %@",key];
     NSSortDescriptor *sort = [NSSortDescriptor sortDescriptorWithKey:@"paletteName" ascending:YES selector:@selector(caseInsensitiveCompare:)];
     [request setPredicate:predicate];
     [request setSortDescriptors:[NSArray arrayWithObject:sort]];
