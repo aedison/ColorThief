@@ -57,7 +57,7 @@
         ALAssetRepresentation *rep = [myasset defaultRepresentation];
         CGImageRef iref = [rep fullResolutionImage];
         if (iref) {
-            UIImage* image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:[rep orientation]];
+            UIImage* image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
             [self loadImage:image toView:self.paletteSourceIV stoppingIndicator:self.paletteSourceLoading];
         }
     };
@@ -211,7 +211,6 @@
         return YES;
     }
     else{
-        NSLog(@"Number out of bounds");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Number out of bounds"
                                                         message:@"Valid entries are numbers between 0 and 255"
                                                        delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -224,6 +223,7 @@
 {
     if([self textFieldIsValid:textField]){
         [textField resignFirstResponder];
+        self.navigationItem.hidesBackButton = NO;
         return YES;
     }
     else{
@@ -233,20 +233,16 @@
 
 - (BOOL) textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if(self.keyboard != nil){
-        self.keyboardYOffset = abs(self.keyboardYOffset);
-        return YES;
-    }
-    else{
-        NSLog(@"self.keyboard not set correctly");
-        return NO;
-    }
+    self.keyboardYOffset = abs(self.keyboardYOffset);
+    self.navigationItem.hidesBackButton = YES;
+    return YES;
 }
 
 -(BOOL) textFieldShouldEndEditing:(UITextField *)textField
 {
     if([self textFieldIsValid:textField]){
         self.keyboardYOffset = -self.keyboardYOffset;
+        self.navigationItem.hidesBackButton = NO;
         [textField resignFirstResponder];
         return YES;
     }

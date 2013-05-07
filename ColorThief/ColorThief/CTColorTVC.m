@@ -44,10 +44,10 @@
     self.title=self.palette.paletteName;
     self.colors=[NSMutableArray arrayWithArray:[self.palette paletteColorsSortedByKey:@"red"]];
     
-    NSError* error;
+
     
     //Testing Code
-    
+//    NSError* error;
 //    if ([self.colors count]==0){
 //        //For testing purposes
 //        Colors* newColor=[Colors newColorFromUIColor:[UIColor redColor] inContext:self.managedObjectContext inPalette:self.palette];

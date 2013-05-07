@@ -88,17 +88,6 @@
     }
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"Browser will disappear");
-}
-
-- (void) viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-    NSLog(@"Browser did disappear");
-}
 
 - (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
@@ -114,9 +103,7 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"Cancel Tapped.");
-        [alertView resignFirstResponder];
-        //[self imagePickerControllerDidCancel:self.picker];
+        //Don't need to do anything special on cancel
     }
     else if(buttonIndex == 1 && [alertView.title isEqualToString:@"New Palette?"]){
         //load up a list of saved palettes
@@ -128,7 +115,6 @@
     }
     else if(buttonIndex ==2 && [alertView.title isEqualToString:@"New Palette?"]){
         //throw an alert to ask for the new palette name
-        NSLog(@"New Tapped.");
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Palette Name"
                                                         message:@"Name your new palette" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK",nil];
         UITextField *txtName = [[UITextField alloc] initWithFrame:CGRectMake(12.0, 45.0, 260.0, 25.0)];
@@ -149,7 +135,6 @@
             NSString* paletteName=txtView.text;
             NSURL* imageURL =self.imageInfo[UIImagePickerControllerReferenceURL];
             
-            NSLog(@"Picked image with url: %@",imageURL);
             
             Palettes* paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
 

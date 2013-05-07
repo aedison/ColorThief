@@ -90,7 +90,7 @@
     
     [UIView animateWithDuration:duration
                           delay:0.0
-                        options:curve
+                        options:(UIViewAnimationOptions)curve
                      animations:action
                      completion:nil];
 }

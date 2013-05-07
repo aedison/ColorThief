@@ -91,14 +91,12 @@
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        NSLog(@"Cancel Tapped.");
         
         //Need to test this with camera to see if it returns to an active camera/retake option
         [alertView resignFirstResponder];
         //[self imagePickerControllerDidCancel:self.picker];
     }
     else if (buttonIndex == 1) {
-        NSLog(@"OK Tapped.");
         if([[alertView.subviews lastObject] isKindOfClass:[UITextField class]]){
             
             UIImage *viewImage =self.imageInfo[UIImagePickerControllerOriginalImage];
@@ -111,7 +109,6 @@
                 if (error) {
                     NSLog(@"error -- %@",error);
                 } else {
-                    NSLog(@"image url %@", imageURL);
                     
                     [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
                 }
