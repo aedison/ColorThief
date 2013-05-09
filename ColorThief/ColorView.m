@@ -13,6 +13,7 @@
 @synthesize fScale = _fScale;
 @synthesize fXOffSet = _fXOffSet;
 @synthesize fYOffset = _fYOffset;
+@synthesize iState = _iState;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -29,10 +30,10 @@
 
 - (void)pinch:(UIPinchGestureRecognizer *)gesture
 {
-    if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded))
+    if (_iState == 0 && ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)))
     {
         // set scale to appropriate value according to pinch and redraw
-        NSLog(@"%f", gesture.scale);
+        // NSLog(@"%d", _iState);
         _fScale += (gesture.scale - 1);
         gesture.scale = 1;
         [self setNeedsDisplay];
@@ -50,7 +51,8 @@
 
 - (void)pan:(UIPanGestureRecognizer *)gesture
 {
-    if ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded))
+    // NSLog(@"%d", _iState);
+    if (_iState == 0 && ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)))
     {
         // this will shift everything when we redraw
         CGPoint pTranslate = [gesture translationInView:self];
@@ -58,15 +60,6 @@
         _fYOffset = pTranslate.y;
         [self setNeedsDisplay];
     }
-    /* if (gesture.state == UIGestureRecognizerStateBegan || gesture.state == UIGestureRecognizerStateChanged) {
-        self.transform = CGAffineTransformScale(self.transform, gesture.scale, gesture.scale);
-        [gesture setScale:1];
-    } */
-    
-    /* if ([pinchGest state] == UIGestureRecognizerStateBegan || [pinchGest state] == UIGestureRecognizerStateChanged) {
-        [pinchGest view].transform = CGAffineTransformScale([[pinchGest view] transform], [pinchGest scale], [pinchGest scale]);
-        [pinchGest setScale:1];
-    } */
 }
 
 // Only override drawRect: if you perform custom drawing.

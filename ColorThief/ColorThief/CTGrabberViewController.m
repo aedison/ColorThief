@@ -7,18 +7,15 @@
 //
 
 #import "CTGrabberViewController.h"
+#import "colorSquare.h"
 
 @interface CTGrabberViewController ()
-
-// This property will denote whether we are in the "picture view" state or the "color select" state
-// picture view = 0, color select = 1
-@property (nonatomic) int iState;
+@property (nonatomic, strong) colorSquare *colorSquare;
 
 @end
 
 @implementation CTGrabberViewController
 
-@synthesize iState = _iState;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -35,25 +32,41 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
-    // Start out in picture view state
-    _iState = 0;
+
+    // ++++++++++++++++++++++++++++++++
     
+    // Start out in picture view state
+    //////////////-----------
+    self.colorView.iState = 0;
+    self.colorView.fScale = 1;
     
     // Set sample background image
-    UIGraphicsBeginImageContext(self.view.frame.size);
-    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:self.view.bounds];
+    UIGraphicsBeginImageContext(self.colorView.frame.size);
+    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:self.colorView.bounds];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:image];
+    self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
+    
+    // TESTING COLOR SQUARE
+    // ++++++++++++++++++++++++++++++++
+    
+    // init at point (50, 50) with size (10, 10)
+    [self.colorSquare init:50 :50 :10 :10];
+    
+    // Test "getColorCode"
+    UIColor *myTestColor = [self.colorSquare getColorCode:self.colorView];
+    
+    NSLog(@"UIColor is set\n");
+
     
     // add gesture recognizers
     // add pinch recognizer
-    [self.view addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.view action:@selector(pinch:)]];
+    [self.colorView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pinch:)]];
     // add pan recognizer
-    [self.view addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self.view action:@selector(pan:)]];
+    [self.colorView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pan:)]];
     // add tap recognizer
-    [self.view addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.view action:@selector(tap:)]];
+    [self.colorView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(tap:)]];
     
 }
 
@@ -68,4 +81,15 @@
     NSLog(@"Grabber disappeared");
 }
 
+- (IBAction)modeSwitch:(id)sender
+{
+    if (self.colorView.iState == 0)
+    {
+        self.colorView.iState = 1;
+    }
+    else
+    {
+        self.colorView.iState = 0;
+    }
+}
 @end
