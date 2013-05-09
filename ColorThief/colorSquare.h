@@ -15,6 +15,7 @@
 // functions
  - (void) init:(int)iXP :(int)iYP :(int)iXS :(int)iYS;
  - (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count;
+ - (UIColor*)getColorFromImage:(UIImage *)image;
 
 // properties
 @property float fXPos;
