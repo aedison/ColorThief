@@ -21,9 +21,9 @@
                           withName:(NSString *)paletteName
                        andFileName:(NSURL *)fileName
 {
-    NSString * file = [fileName absoluteString];
-    NSString * name = paletteName;
-    NSString *  key = [file stringByAppendingString:name];
+    NSString *file = [fileName absoluteString];
+    NSString *name = paletteName;
+    NSString *key = [NSString stringWithFormat:@"%@%@",file,name];
     
     NSError* error=nil;
     
@@ -39,7 +39,7 @@
     
     if([results count]==0){
         
-        Palettes* newPalette= [NSEntityDescription insertNewObjectForEntityForName:@"Palette"
+        newPalette= [NSEntityDescription insertNewObjectForEntityForName:@"Palette"
                                                             inManagedObjectContext:managedObjectContext];
         newPalette.fileName=[fileName absoluteString];
         newPalette.paletteName=paletteName;
@@ -50,19 +50,21 @@
         if (![managedObjectContext save:&error]) {
             NSLog(@"Error during palette save: %@",error.description);
         }
+        return newPalette;
     }
     else if([results count]==1){
         newPalette=results[0];
+        return newPalette;
     }
     else if(results == nil){
         NSLog(@"Error checking for existing entry in database -- %@",error);
+        return nil;
     }
     else{
         NSLog(@"Something strange happened. The unique key is not unique");
-        newPalette = nil;
+        return nil;
     }
     
-    return newPalette;
 }
 
 @end

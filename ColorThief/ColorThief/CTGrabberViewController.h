@@ -7,11 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "colorView.h"
+#import <AssetsLibrary/AssetsLibrary.h>
+
+@class ColorView, Palettes;
 
 @interface CTGrabberViewController : UIViewController
 - (IBAction)modeSwitch:(id)sender;
 
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
+
+@property (nonatomic, strong) Palettes *palette;
 
 @end

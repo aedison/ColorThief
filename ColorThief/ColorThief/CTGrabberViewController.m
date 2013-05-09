@@ -8,6 +8,8 @@
 
 #import "CTGrabberViewController.h"
 #import "colorSquare.h"
+#import "ColorView.h"
+#import "Palettes+Saved.h"
 
 @interface CTGrabberViewController ()
 @property (nonatomic, strong) colorSquare *colorSquare;
@@ -32,6 +34,38 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    //Ask the AssetLibrary for the image that we want to load
+    NSURL* assetURL = [NSURL URLWithString:self.palette.fileName];
+    NSLog(@"Loading from palette name -- %@", self.palette.paletteName);
+    
+    ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
+    {
+        ALAssetRepresentation *rep = [myasset defaultRepresentation];
+        CGImageRef iref = [rep fullResolutionImage];
+        if (iref) {
+            UIImage* image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
+            UIGraphicsBeginImageContext(image.size);
+            [image drawAtPoint:CGPointMake(0, 0)];
+            UIImage *image2 = UIGraphicsGetImageFromCurrentImageContext();
+            UIGraphicsEndImageContext();
+            self.colorView.backgroundColor = [UIColor colorWithPatternImage:image2];
+            [self.colorView setNeedsDisplay];
+        }
+    };
+    
+    //
+    ALAssetsLibraryAccessFailureBlock failureblock  = ^(NSError *myerror)
+    {
+        NSLog(@"Cant get image - %@",[myerror localizedDescription]);
+    };
+    
+    if(self.palette.fileName && [self.palette.fileName length])
+    {
+        ALAssetsLibrary* assetslibrary = [[ALAssetsLibrary alloc] init];
+        [assetslibrary assetForURL:assetURL
+                       resultBlock:resultblock
+                      failureBlock:failureblock];
+    }
 
     // ++++++++++++++++++++++++++++++++
     
@@ -41,12 +75,12 @@
     self.colorView.fScale = 1;
     
     // Set sample background image
-    UIGraphicsBeginImageContext(self.colorView.frame.size);
-    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:self.colorView.bounds];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
+//    UIGraphicsBeginImageContext(self.colorView.frame.size);
+//    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:self.colorView.bounds];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
     
     // TESTING COLOR SQUARE
     // ++++++++++++++++++++++++++++++++

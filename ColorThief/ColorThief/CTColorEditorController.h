@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *paletteSourceLoading;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *colorViewLoading;
 @property (weak, nonatomic) IBOutlet UILabel *paletteName;
+@property (weak, nonatomic) IBOutlet UILabel *colorHex;
 @property (weak, nonatomic) IBOutlet UITextField *redTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *greenTxtField;
 @property (weak, nonatomic) IBOutlet UITextField *blueTxtField;

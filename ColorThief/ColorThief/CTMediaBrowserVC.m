@@ -7,6 +7,7 @@
 //
 
 #import "CTMediaBrowserVC.h"
+#import "CTGrabberViewController.h"
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
 #import "CTPaletteTVC.h"
@@ -96,6 +97,11 @@
         paletteList.managedObjectContext = self.managedObjectContext;
         paletteList.fetchingFromImageFileName = [self.imageInfo[UIImagePickerControllerReferenceURL] absoluteString];
     }
+    if([segue.identifier isEqualToString:@"BrowserNewToGrabber"]&&[segue.destinationViewController isKindOfClass:[CTGrabberViewController class]]){
+        CTGrabberViewController* grabber = segue.destinationViewController;
+        NSLog(@"Passing palette named -- %@ -- to grabber.",self.paletteToPass.paletteName);
+        grabber.palette = self.paletteToPass;
+    }
 }
 
 
@@ -136,8 +142,9 @@
             NSURL* imageURL =self.imageInfo[UIImagePickerControllerReferenceURL];
             
             
-            Palettes* paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
-
+            self.paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+            
+            NSLog(@"Palette created with name -- %@",self.paletteToPass.paletteName);
             
             
             [self performSegueWithIdentifier:@"BrowserNewToGrabber" sender:self];

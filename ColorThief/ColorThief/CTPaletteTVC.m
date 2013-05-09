@@ -124,6 +124,7 @@
         // Pass the info to the color grabber.  I dont know what this needs yet --ACE
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
         CTGrabberViewController* grabber = segue.destinationViewController;
+        grabber.palette = self.palettes[indexPath.row];
     }
 }
 

@@ -95,7 +95,7 @@
     NSString *key = nil;
     
     pName = palette.paletteName;
-    key = [colorHex stringByAppendingString:pName];
+    key = [NSString stringWithFormat:@"%@%@",colorHex,pName];
 
     NSError *error = nil;
     
@@ -129,15 +129,16 @@
         if (![managedObjectContext save:&error]) {
             NSLog(@"Error during color save: %@",error.description);
         }
+        return tempColor;
     }
     else if ([results count]==1){
         tempColor=results[0];
+        return tempColor;
     }
     else{
         NSLog(@"Color fetch returned incorrect number of entries");
+        return nil;
     }
-    return tempColor;
-
 }
 
 
