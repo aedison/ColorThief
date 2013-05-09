@@ -31,7 +31,6 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
-    
 
     // ++++++++++++++++++++++++++++++++
     
@@ -50,14 +49,23 @@
     
     // TESTING COLOR SQUARE
     // ++++++++++++++++++++++++++++++++
-    
+    if (!self.colorSquare)
+    {
+        self.colorSquare = [[colorSquare alloc] init];
+    }
     // init at point (50, 50) with size (10, 10)
-    [self.colorSquare init:50 :50 :10 :10];
     
+    [self.colorSquare init:50 :50 :5 :5];
+    NSArray *myArray = [self.colorSquare getRGBAsFromImage:image :50 :50 :4];
+    // NSLog(@"%@", myArray[0]);
+    NSLog(@"Array has been created");
+    
+    
+    self.colorView.backgroundColor = myArray[0];
+    /* 
     // Test "getColorCode"
     UIColor *myTestColor = [self.colorSquare getColorCode:self.colorView];
-    
-    NSLog(@"UIColor is set\n");
+     */
 
     
     // add gesture recognizers

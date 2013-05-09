@@ -84,7 +84,7 @@
 {
     [super viewWillAppear:animated];
     if(self.picker==nil){
-        [self initializeBrowser];
+        //[self initializeBrowser];
     }
 }
 

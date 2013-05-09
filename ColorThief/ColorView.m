@@ -7,6 +7,7 @@
 //
 
 #import "ColorView.h"
+#import "Palettes+Saved.h"
 
 @implementation ColorView
 
@@ -14,6 +15,7 @@
 @synthesize fXOffSet = _fXOffSet;
 @synthesize fYOffset = _fYOffset;
 @synthesize iState = _iState;
+@synthesize palette = _palette;
 
 - (id)initWithFrame:(CGRect)frame
 {
