@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ColorView.h"
+#import "colorView.h"
 
 @interface CTGrabberViewController : UIViewController
+- (IBAction)modeSwitch:(id)sender;
+
+@property (strong, nonatomic) IBOutlet ColorView *colorView;
 
 @end

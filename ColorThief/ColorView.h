@@ -17,4 +17,9 @@
 @property (nonatomic) CGFloat fXOffSet;
 @property (nonatomic) CGFloat fYOffset;
 
+// view mode/grab mode
+// This property will denote whether we are in the "picture view" state or the "color select" state
+// picture view = 0, color select = 1
+@property (nonatomic) int iState;
+
 @end
