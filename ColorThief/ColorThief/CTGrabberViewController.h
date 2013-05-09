@@ -17,5 +17,6 @@
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
 
 @property (nonatomic, strong) Palettes *palette;
+@property (nonatomic, strong) UIImage *image;
 
 @end

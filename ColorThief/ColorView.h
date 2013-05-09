@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+@class Palettes;
 
 @interface ColorView : UIView
 
@@ -16,6 +17,9 @@
 // panning
 @property (nonatomic) CGFloat fXOffSet;
 @property (nonatomic) CGFloat fYOffset;
+
+// Palette
+@property (nonatomic, strong) Palettes *palette;
 
 // view mode/grab mode
 // This property will denote whether we are in the "picture view" state or the "color select" state
