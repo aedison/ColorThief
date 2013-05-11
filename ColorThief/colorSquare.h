@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "ColorView.h"
 
 @interface colorSquare : NSObject
 
@@ -21,10 +20,5 @@
 @property float fYPos;
 @property float fXSize;
 @property float fYSize;
-
-@property float redVal;
-@property float greenVal;
-@property float blueVal;
-@property float alphaVal;
 
 @end

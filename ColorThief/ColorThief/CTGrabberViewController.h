@@ -11,6 +11,7 @@
 
 @interface CTGrabberViewController : UIViewController
 - (IBAction)modeSwitch:(id)sender;
+- (IBAction)deleteSquare:(id)sender;
 
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
 

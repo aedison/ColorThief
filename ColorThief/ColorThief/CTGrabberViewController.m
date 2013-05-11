@@ -7,10 +7,8 @@
 //
 
 #import "CTGrabberViewController.h"
-#import "colorSquare.h"
 
 @interface CTGrabberViewController ()
-@property (nonatomic, strong) colorSquare *colorSquare;
 
 @end
 
@@ -38,6 +36,7 @@
     //////////////-----------
     self.colorView.iState = 0;
     self.colorView.fScale = 1;
+    self.colorView.bDrawing = FALSE;
     
     // Set sample background image
     UIGraphicsBeginImageContext(self.colorView.frame.size);
@@ -46,28 +45,7 @@
     UIGraphicsEndImageContext();
     
     self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
-    
-    // TESTING COLOR SQUARE
-    // ++++++++++++++++++++++++++++++++
-    if (!self.colorSquare)
-    {
-        self.colorSquare = [[colorSquare alloc] init];
-    }
-    // init at point (50, 50) with size (10, 10)
-    
-    [self.colorSquare init:50 :50 :5 :5];
-    NSArray *myArray = [self.colorSquare getRGBAsFromImage:image :50 :50 :4];
-    // NSLog(@"%@", myArray[0]);
-    NSLog(@"Array has been created");
-    
-    
-    self.colorView.backgroundColor = myArray[0];
-    /* 
-    // Test "getColorCode"
-    UIColor *myTestColor = [self.colorSquare getColorCode:self.colorView];
-     */
 
-    
     // add gesture recognizers
     // add pinch recognizer
     [self.colorView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pinch:)]];
@@ -94,10 +72,18 @@
     if (self.colorView.iState == 0)
     {
         self.colorView.iState = 1;
+        [sender setTitle:@"Pan/Zoom mode" forState:UIControlStateNormal];
     }
     else
     {
         self.colorView.iState = 0;
+        [sender setTitle:@"Color Grab Mode" forState:UIControlStateNormal];
     }
+}
+
+- (IBAction)deleteSquare:(id)sender
+{
+    self.colorView.colorSquare = NULL;
+    [self.colorView setNeedsDisplay];
 }
 @end
