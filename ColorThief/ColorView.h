@@ -27,7 +27,7 @@
 @property (nonatomic) CGFloat fYOffset;
 
 // Palette
-@property (nonatomic, strong) Palettes *palette;
+@property (nonatomic, strong) UIImage *image;
 
 // view mode/grab mode
 // This property will denote whether we are in the "picture view" state or the "color select" state

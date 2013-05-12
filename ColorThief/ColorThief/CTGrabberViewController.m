@@ -10,6 +10,8 @@
 #import "colorSquare.h"
 #import "ColorView.h"
 #import "Palettes+Saved.h"
+#import "Colors+Saved.h"
+#import "CTAppDelegate.h"
 
 
 @interface CTGrabberViewController ()
@@ -17,6 +19,15 @@
 @end
 
 @implementation CTGrabberViewController
+
+- (NSManagedObjectContext *) moc
+{
+    if(_moc==nil){
+        CTAppDelegate* appDelegate=[[UIApplication sharedApplication] delegate];
+        _moc = [appDelegate managedObjectContext];
+    }
+    return _moc;
+}
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -44,6 +55,7 @@
         CGImageRef iref = [rep fullResolutionImage];
         if (iref) {
             self.image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
+            self.colorView.image = self.image;
             self.colorView.backgroundColor = [UIColor colorWithPatternImage:self.image];
             [self.colorView setNeedsDisplay];
             // TESTING COLOR SQUARE
@@ -111,5 +123,15 @@
 {
     self.colorView.colorSquare = NULL;
     [self.colorView setNeedsDisplay];
+}
+
+- (IBAction)saveColor:(UIButton *)sender {
+    if(self.colorView.colorSquare){
+        [Colors newColorFromUIColor:[self.colorView.colorSquare getColorFromImage:self.colorView.image] inContext:self.moc inPalette:self.palette];
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Box" message:@"You can only save once you have drawn a color square" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 @end

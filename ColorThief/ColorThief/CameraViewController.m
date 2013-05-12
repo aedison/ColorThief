@@ -9,6 +9,7 @@
 #import "CameraViewController.h"
 #import "Palettes+Saved.h"
 #import "CTAppDelegate.h"
+#import "CTGrabberViewController.h"
 
 @interface CameraViewController () 
 
@@ -87,6 +88,16 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+
+    if([segue.identifier isEqualToString:@"CameraToGrabber"]&&[segue.destinationViewController isKindOfClass:[CTGrabberViewController class]]){
+        CTGrabberViewController* grabber = segue.destinationViewController;
+        NSLog(@"Passing palette named -- %@ -- to grabber.",self.paletteToPass.paletteName);
+        grabber.palette = self.paletteToPass;
+    }
+}
+
 // Respond to button tap on alert view
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
@@ -110,7 +121,7 @@
                     NSLog(@"error -- %@",error);
                 } else {
                     
-                    [Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+                    self.paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
                 }
             }];
             [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];

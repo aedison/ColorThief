@@ -17,7 +17,6 @@
 @synthesize fXOffSet = _fXOffSet;
 @synthesize fYOffset = _fYOffSet;
 @synthesize iState = _iState;
-@synthesize palette = _palette;
 @synthesize bDrawing = _bDrawing;
 @synthesize fCXOffSet = _fCXOffSet;
 @synthesize fCYOffset = _fCYOffSet;
@@ -139,7 +138,7 @@ if (!self.colorSquare)
     // By incrementing fScale, the image should be drawn larger (thus, zooming in)
     CGRect rTempRect = CGRectMake(self.bounds.origin.x + _fXOffSet, self.bounds.origin.y + _fYOffSet, self.bounds.size.width * _fScale, self.bounds.size.height * _fScale);
     
-    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:rTempRect];
+    [self.image drawInRect:rTempRect];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
