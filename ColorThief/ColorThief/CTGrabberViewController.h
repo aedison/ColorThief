@@ -17,6 +17,7 @@
 - (IBAction)saveColor:(UIButton *)sender;
 
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageView;
 
 @property (nonatomic, strong) Palettes *palette;
 @property (nonatomic, strong) UIImage *image;

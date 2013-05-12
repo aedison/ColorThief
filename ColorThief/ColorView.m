@@ -132,18 +132,18 @@ if (!self.colorSquare)
 {
     // Drawing code
     // Redraw sample background image
-    UIGraphicsBeginImageContext(self.frame.size);
-    // NSLog(@"%f", _fScale);
-    // fScale modifies the size of the rect in which the image is drawn
-    // By incrementing fScale, the image should be drawn larger (thus, zooming in)
-    CGRect rTempRect = CGRectMake(self.bounds.origin.x + _fXOffSet, self.bounds.origin.y + _fYOffSet, self.bounds.size.width * _fScale, self.bounds.size.height * _fScale);
-    
-    [self.image drawInRect:rTempRect];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // Update background
-    self.backgroundColor = [UIColor colorWithPatternImage:image];
+//    UIGraphicsBeginImageContext(self.frame.size);
+//    // NSLog(@"%f", _fScale);
+//    // fScale modifies the size of the rect in which the image is drawn
+//    // By incrementing fScale, the image should be drawn larger (thus, zooming in)
+//    CGRect rTempRect = CGRectMake(self.bounds.origin.x + _fXOffSet, self.bounds.origin.y + _fYOffSet, self.bounds.size.width * _fScale, self.bounds.size.height * _fScale);
+//    
+//    [self.image drawInRect:rTempRect];
+//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+//    UIGraphicsEndImageContext();
+//    
+//    // Update background
+//    self.backgroundColor = [UIColor colorWithPatternImage:image];
     
     CGContextRef con = UIGraphicsGetCurrentContext();
     
@@ -178,7 +178,7 @@ if (!self.colorSquare)
         
         CGContextSetRGBFillColor(con, 1.0, 1.0, 1.0, .35);
         CGContextFillRect(con, rColorRect);
-        CGContextSetFillColorWithColor(con, [[self.colorSquare getColorFromImage:image] CGColor]);
+        CGContextSetFillColorWithColor(con, [[self.colorSquare getColorFromImage:self.image] CGColor]);
         CGContextFillRect(con, rDispRect);
     }
     

@@ -56,7 +56,8 @@
         if (iref) {
             self.image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
             self.colorView.image = self.image;
-            self.colorView.backgroundColor = [UIColor colorWithPatternImage:self.image];
+            self.imageView.image = self.image;
+            self.colorView.contentSize = self.image.size;
             [self.colorView setNeedsDisplay];
             // TESTING COLOR SQUARE
         }

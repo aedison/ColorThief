@@ -11,7 +11,7 @@
 
 @class Palettes,colorSquare;
 
-@interface ColorView : UIView
+@interface ColorView : UIScrollView
 
 // colorSquare
 @property (nonatomic) colorSquare *colorSquare;
