@@ -56,7 +56,7 @@
     self.colorView.delegate = self;
     self.colorView.clipsToBounds = YES;
     self.colorView.decelerationRate = UIScrollViewDecelerationRateFast;
-    self.colorView.zoomScale = 4;
+    self.colorView.minimumZoomScale = .1;
     self.colorView.maximumZoomScale = 10.0;
     
     //Ask the AssetLibrary for the image that we want to load
@@ -72,6 +72,7 @@
             self.colorView.image = self.image;
             self.imageView.image = self.image;
             self.colorView.contentSize = self.image.size;
+            self.colorView.zoomScale = self.view.frame.size.width/self.image.size.width;
             [self.colorView setNeedsDisplay];
             // TESTING COLOR SQUARE
         }
@@ -124,20 +125,25 @@
     NSLog(@"locationInView: %@ locationInSuperView: %@", NSStringFromCGPoint(locationInView), NSStringFromCGPoint(locationInSuperview));
 }
 
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
+{
+    return self.imageView;
+}
+
 - (IBAction)modeSwitch:(id)sender
 {
-    if (self.colorView.iState == 0)
+    if (self.colorView.iState == 1)
     {
-        self.colorView.iState = 1;
-        [sender setTitle:@"Pan/Zoom mode" forState:UIControlStateNormal];
+        self.colorView.iState = 0;
+        [sender setTitle:@"To Color Grab Mode" forState:UIControlStateNormal];
         [self.colorView removeGestureRecognizer:self.gPinch];
         [self.colorView removeGestureRecognizer:self.gPan];
         [self.colorView removeGestureRecognizer:self.gTap];
     }
     else
     {
-        self.colorView.iState = 0;
-        [sender setTitle:@"Color Grab Mode" forState:UIControlStateNormal];
+        self.colorView.iState = 1;
+        [sender setTitle:@"To Pan/Zoom Mode" forState:UIControlStateNormal];
         // add gesture recognizers
         // add pinch recognizer
 

@@ -11,7 +11,7 @@
 
 @class ColorView, colorSquare, Palettes;
 
-@interface CTGrabberViewController : UIViewController
+@interface CTGrabberViewController : UIViewController <UIScrollViewDelegate>
 - (IBAction)modeSwitch:(id)sender;
 - (IBAction)deleteSquare:(id)sender;
 - (IBAction)saveColor:(UIButton *)sender;

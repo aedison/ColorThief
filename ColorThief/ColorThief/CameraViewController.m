@@ -122,11 +122,11 @@
                 } else {
                     
                     self.paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
+                    [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
+                    self.picker=nil;
+                    [self dismissViewControllerAnimated:YES completion:nil];
                 }
             }];
-            [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
-            self.picker=nil;
-            [self dismissViewControllerAnimated:YES completion:nil];
         }
     }
 }

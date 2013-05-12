@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12A269" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="3084" systemVersion="12D78" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="tA2-z4-RCX">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="2083"/>
     </dependencies>
@@ -124,17 +124,25 @@
         <scene sceneID="yDi-p0-iqu">
             <objects>
                 <viewController id="siX-BB-BDM" customClass="CTGrabberViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0PJ-Rb-lw3" customClass="ColorView">
+                    <view key="view" contentMode="scaleToFill" id="drI-nG-B8p">
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8p-6D-jRb"/>
-                            <button opaque="NO" tag="1" contentMode="scaleToFill" restorationIdentifier="" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J84-OT-JcU">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PJ-Rb-lw3" customClass="ColorView">
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8p-6D-jRb"/>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="21" id="eLN-Tg-4Fb"/>
+                                    <constraint firstItem="L8p-6D-jRb" firstAttribute="leading" secondItem="0PJ-Rb-lw3" secondAttribute="leading" type="user" id="LeQ-cd-iWX"/>
+                                    <constraint firstItem="L8p-6D-jRb" firstAttribute="bottom" secondItem="0PJ-Rb-lw3" secondAttribute="bottom" type="default" id="tcr-N9-T8x"/>
+                                    <constraint firstItem="L8p-6D-jRb" firstAttribute="trailing" secondItem="0PJ-Rb-lw3" secondAttribute="trailing" type="user" id="wt5-5w-Ih2"/>
+                                    <constraint firstItem="L8p-6D-jRb" firstAttribute="top" secondItem="0PJ-Rb-lw3" secondAttribute="top" type="default" id="zTu-KM-A50"/>
                                 </constraints>
+                            </view>
+                            <button opaque="NO" tag="1" contentMode="scaleToFill" restorationIdentifier="" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="J84-OT-JcU">
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
-                                <state key="normal" title="Color Grab Mode">
+                                <state key="normal" title="To Color Grab Mode">
                                     <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -147,7 +155,7 @@
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jza-QR-0Ad">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="91" id="Oc1-yG-Bfq"/>
+                                    <constraint firstAttribute="width" constant="78" id="Rfm-gc-eXD"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                 <state key="normal" title="Delete Square">
@@ -163,7 +171,8 @@
                             </button>
                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tf0-ia-bWa">
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="kiP-E5-lX2"/>
+                                    <constraint firstAttribute="height" constant="21" type="user" id="i70-7h-cia"/>
+                                    <constraint firstAttribute="width" constant="75" type="user" id="kiP-E5-lX2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="10"/>
                                 <state key="normal" title="Save Color">
@@ -180,26 +189,28 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="J84-OT-JcU" firstAttribute="leading" secondItem="0PJ-Rb-lw3" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="6EV-es-o8X"/>
-                            <constraint firstItem="tf0-ia-bWa" firstAttribute="leading" secondItem="J84-OT-JcU" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="BU4-CN-Umz"/>
-                            <constraint firstItem="jza-QR-0Ad" firstAttribute="leading" secondItem="tf0-ia-bWa" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="FYg-Ys-7LC"/>
-                            <constraint firstItem="tf0-ia-bWa" firstAttribute="top" secondItem="J84-OT-JcU" secondAttribute="top" type="default" id="L2D-wd-0WB"/>
-                            <constraint firstItem="L8p-6D-jRb" firstAttribute="leading" secondItem="0PJ-Rb-lw3" secondAttribute="leading" type="default" id="LeQ-cd-iWX"/>
-                            <constraint firstAttribute="trailing" secondItem="jza-QR-0Ad" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="Mym-V8-7LG"/>
-                            <constraint firstItem="L8p-6D-jRb" firstAttribute="bottom" secondItem="0PJ-Rb-lw3" secondAttribute="bottom" type="default" id="QCU-aU-nyr"/>
-                            <constraint firstItem="L8p-6D-jRb" firstAttribute="trailing" secondItem="0PJ-Rb-lw3" secondAttribute="trailing" type="default" id="S8b-eO-dXE"/>
-                            <constraint firstItem="tf0-ia-bWa" firstAttribute="bottom" secondItem="J84-OT-JcU" secondAttribute="bottom" type="default" id="Uis-OE-jfz"/>
-                            <constraint firstItem="tf0-ia-bWa" firstAttribute="bottom" secondItem="jza-QR-0Ad" secondAttribute="bottom" type="default" id="Zx1-2I-cc0"/>
-                            <constraint firstAttribute="bottom" secondItem="J84-OT-JcU" secondAttribute="bottom" constant="12" id="iLm-Yc-cxe"/>
-                            <constraint firstItem="tf0-ia-bWa" firstAttribute="top" secondItem="jza-QR-0Ad" secondAttribute="top" type="default" id="ofa-SF-9GL"/>
-                            <constraint firstItem="L8p-6D-jRb" firstAttribute="top" secondItem="0PJ-Rb-lw3" secondAttribute="top" type="default" id="uVu-F7-LPr"/>
+                            <constraint firstItem="0PJ-Rb-lw3" firstAttribute="top" secondItem="drI-nG-B8p" secondAttribute="top" type="user" id="BLp-bc-pDh"/>
+                            <constraint firstAttribute="bottom" secondItem="tf0-ia-bWa" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="FM4-ra-t8s"/>
+                            <constraint firstItem="jza-QR-0Ad" firstAttribute="top" secondItem="tf0-ia-bWa" secondAttribute="top" type="default" id="Fjd-Lv-o3E"/>
+                            <constraint firstAttribute="bottom" secondItem="jza-QR-0Ad" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="GaO-mT-SWB"/>
+                            <constraint firstItem="jza-QR-0Ad" firstAttribute="leading" secondItem="tf0-ia-bWa" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="Lfm-Q7-swo"/>
+                            <constraint firstItem="tf0-ia-bWa" firstAttribute="baseline" secondItem="jza-QR-0Ad" secondAttribute="baseline" type="user" id="MNi-Qb-g55"/>
+                            <constraint firstItem="J84-OT-JcU" firstAttribute="top" secondItem="tf0-ia-bWa" secondAttribute="top" type="default" id="Oxs-mb-dpe"/>
+                            <constraint firstItem="jza-QR-0Ad" firstAttribute="baseline" secondItem="J84-OT-JcU" secondAttribute="baseline" type="user" id="RUR-Ns-TJA"/>
+                            <constraint firstItem="tf0-ia-bWa" firstAttribute="baseline" secondItem="J84-OT-JcU" secondAttribute="baseline" type="user" id="WmH-EF-PuO"/>
+                            <constraint firstItem="0PJ-Rb-lw3" firstAttribute="trailing" secondItem="drI-nG-B8p" secondAttribute="trailing" type="user" id="cHi-Hj-GQt"/>
+                            <constraint firstItem="J84-OT-JcU" firstAttribute="leading" secondItem="drI-nG-B8p" secondAttribute="leading" constant="20" symbolic="YES" type="default" id="cR9-f0-JF8"/>
+                            <constraint firstItem="0PJ-Rb-lw3" firstAttribute="bottom" secondItem="drI-nG-B8p" secondAttribute="bottom" type="default" id="d3Y-iN-Ff3"/>
+                            <constraint firstItem="0PJ-Rb-lw3" firstAttribute="leading" secondItem="drI-nG-B8p" secondAttribute="leading" type="user" id="efl-CL-M3u"/>
+                            <constraint firstAttribute="trailing" secondItem="jza-QR-0Ad" secondAttribute="trailing" constant="20" symbolic="YES" type="default" id="qnH-s1-Wlz"/>
+                            <constraint firstItem="tf0-ia-bWa" firstAttribute="leading" secondItem="J84-OT-JcU" secondAttribute="trailing" constant="8" symbolic="YES" type="default" id="s0H-Pb-kln"/>
+                            <constraint firstAttribute="bottom" secondItem="J84-OT-JcU" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="ycy-0e-ldd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Grabber" id="Jpk-qj-pFX"/>
                     <connections>
                         <outlet property="colorView" destination="0PJ-Rb-lw3" id="hc3-cx-CUU"/>
                         <outlet property="imageView" destination="L8p-6D-jRb" id="629-dm-q7I"/>
-                        <outlet property="view" destination="0PJ-Rb-lw3" id="ak2-ft-scb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzy-xP-fZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -628,9 +639,6 @@
         </class>
         <class className="CTRootVC" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CTRootVC.h"/>
-            <relationships>
-                <relationship kind="action" name="unwindToCTRootVC:" candidateClass="UIStoryboardSegue"/>
-            </relationships>
         </class>
         <class className="CameraViewController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
@@ -643,9 +651,6 @@
         </class>
         <class className="NSLayoutConstraint" superclassName="NSObject">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-        <class className="UIStoryboardSegue" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/UIStoryboardSegue.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

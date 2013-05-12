@@ -72,7 +72,6 @@
     NSUInteger bytesPerRow = CGImageGetBytesPerRow(imageRef);
     NSUInteger bitsPerComponent = CGImageGetBitsPerComponent(imageRef);
     NSUInteger bytesPerComponent = bitsPerComponent/8;
-    CGImageAlphaInfo alphaInfo = CGImageGetAlphaInfo(imageRef);
     
     //Make an array to hold the raw pixel data
     unsigned char *rawData = (unsigned char*) calloc(imageBounds.size.height*bytesPerRow, sizeof(unsigned char));
@@ -82,88 +81,36 @@
     CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
     CGContextRef context = CGBitmapContextCreate(rawData, imageBounds.size.width, imageBounds.size.height,
                                                  bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
+                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Little);
     CGColorSpaceRelease(colorSpace);
     CGContextDrawImage(context, CGRectMake(0, 0, imageBounds.size.width, imageBounds.size.height), imageRef);
     CGContextRelease(context);
     CGImageRelease(imageRef);
-    
-    //Determine which bytes contain the Alpha Info
-    int redOffset;
-    int alphaOffset;
-    BOOL alphaInData=YES;
-    BOOL alphaOnly=NO;
-    switch (alphaInfo) {
-        case kCGImageAlphaFirst:
-            redOffset = bytesPerComponent;
-            alphaOffset = -bytesPerComponent;
-            alphaInData=YES;
-            break;
-        case kCGImageAlphaLast:
-            redOffset = 0;
-            alphaOffset = 3*bytesPerComponent;
-            alphaInData=YES;
-            break;
-        case kCGImageAlphaNone:
-        case kCGImageAlphaNoneSkipLast:
-            redOffset = 0;
-            alphaOffset = 0;
-            alphaInData=NO;
-            break;
-        case kCGImageAlphaNoneSkipFirst:
-            redOffset = 1*bytesPerComponent;
-            alphaInData = NO;
-            alphaOffset = 0;
-            break;
-        case kCGImageAlphaOnly:
-            redOffset=0;
-            alphaOffset=0;
-            alphaOnly=YES;
-            break;
-        case kCGImageAlphaPremultipliedFirst:
-            redOffset = bytesPerComponent;
-            alphaOffset = -bytesPerComponent;
-            alphaInData=NO;
-            break;
-        case kCGImageAlphaPremultipliedLast:
-            redOffset = 0;
-            alphaOffset = 3*bytesPerComponent;
-            alphaInData=NO;
-            break;
-        default:
-            break;
-    }
+
     
     //rawData now contains all of the pixel data, so start iterating over it to get the info we want.
     float pixelCount = imageBounds.size.height * imageBounds.size.width;
+    float byteCount = pixelCount * bytesPerPixel;
     float normailizer = pow(2,bitsPerComponent)-1;
     float redTotal = 0;
     float greenTotal = 0;
     float blueTotal = 0;
     float alphaTotal=0;
     
-    for(int ii = 0; ii<imageBounds.size.height*bytesPerRow;ii+=bytesPerPixel){
+    for(int ii = 0; ii<byteCount;ii+=bytesPerPixel){
         redTotal+=(rawData[ii]*1.0);
         greenTotal+=(rawData[ii+bytesPerComponent]*1.0);
         blueTotal+=(rawData[ii+2*bytesPerComponent]*1.0);
-        alphaTotal+=(rawData[ii+alphaOffset*bytesPerComponent]*1.0);
+        alphaTotal+=(rawData[ii+3*bytesPerComponent]*1.0);
     }
     
     float redAverage = redTotal/(pixelCount*normailizer);
     float greenAverage = greenTotal/(pixelCount*normailizer);
     float blueAverage = blueTotal/(pixelCount*normailizer);
-    float alphaAverage = alphaTotal/(pixelCount*normailizer);
+    //float alphaAverage = alphaTotal/(pixelCount*normailizer);
     
-    if(alphaInData){
-        color = [UIColor colorWithRed:redAverage green:greenAverage blue:blueAverage alpha:alphaAverage];
-    }
-    else if (!alphaInData){
-        color = [UIColor colorWithRed:redAverage green:greenAverage blue:blueAverage alpha:1];
-    }
-    else if(alphaOnly){
-        NSLog(@"Greyscale image, we really shouldnt have gotten here since the space is RGB");
-        color = [UIColor colorWithRed:255 green:255 blue:255 alpha:alphaAverage];
-    }
+    color = [UIColor colorWithRed:redAverage green:greenAverage blue:blueAverage alpha:1];
+
     
     free(rawData);
     

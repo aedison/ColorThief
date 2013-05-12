@@ -50,10 +50,6 @@
 // Reset zoom and alignment
 - (void)tap:(UITapGestureRecognizer *)gesture
 {
-    _fXOffSet = 0;
-    _fYOffSet = 0;
-    _fScale = 1;
-    [self setNeedsDisplay];
     // This code allows the user to draw a 1x1 square by just tapping the screen
     if (_iState == 1 && !self.colorSquare)
     {
@@ -61,8 +57,9 @@
         self.colorSquare = [[colorSquare alloc] init];
         // initialize square as 1x1 at the location of the touch
         CGPoint pLoc = [gesture locationInView:self];
-        self.colorSquare.fXPos=pLoc.x;
-        self.colorSquare.fYPos = pLoc.y;
+        self.colorSquare.fXPos=pLoc.x/self.zoomScale;
+        self.colorSquare.fYPos = pLoc.y/self.zoomScale;
+        [self setNeedsDisplay];
     }
 }
 
@@ -105,8 +102,8 @@
             else
             {
                 // if we are done drawing the square, move the starting location
-                self.colorSquare.fXPos = pLoc.x;
-                self.colorSquare.fYPos = pLoc.y;
+                self.colorSquare.fXPos = pLoc.x/self.zoomScale;
+                self.colorSquare.fYPos = pLoc.y/self.zoomScale;
                 self.colorSquare.fXPos -= (.5 * self.colorSquare.fXSize);
                 self.colorSquare.fYPos -= (.5 * self.colorSquare.fYSize);
             }
