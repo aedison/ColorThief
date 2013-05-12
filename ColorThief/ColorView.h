@@ -7,9 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "colorSquare.h"
+
 @class Palettes;
 
 @interface ColorView : UIView
+
+// colorSquare
+@property (nonatomic) colorSquare *colorSquare;
+@property (nonatomic) bool bDrawing;
+@property (nonatomic) CGFloat fCXOffSet;
+@property (nonatomic) CGFloat fCYOffset;
 
 // zooming
 @property (nonatomic) CGFloat fScale;

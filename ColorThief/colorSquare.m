@@ -15,11 +15,6 @@
 @synthesize fXSize = _fXSize;
 @synthesize fYSize = _fYSize;
 
-@synthesize redVal = _redVal;
-@synthesize greenVal = _greenVal;
-@synthesize blueVal = _blueVal;
-@synthesize alphaVal = _alphaVal;
-
 
 - (colorSquare *) init
 {

@@ -11,8 +11,8 @@
 #import "ColorView.h"
 #import "Palettes+Saved.h"
 
+
 @interface CTGrabberViewController ()
-@property (nonatomic, strong) colorSquare *colorSquare;
 
 @end
 
@@ -78,24 +78,8 @@
     //////////////-----------
     self.colorView.iState = 0;
     self.colorView.fScale = 1;
-    
-    // Set sample background image
-//    UIGraphicsBeginImageContext(self.colorView.frame.size);
-//    [[UIImage imageNamed:@"iPhoneSamplePic.jpg"] drawInRect:self.colorView.bounds];
-//    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-//    UIGraphicsEndImageContext();
-//    
-//    self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
-    
+    self.colorView.bDrawing = FALSE;
 
-    
-    
-    /* 
-    // Test "getColorCode"
-    UIColor *myTestColor = [self.colorSquare getColorCode:self.colorView];
-     */
-
-    
     // add gesture recognizers
     // add pinch recognizer
     [self.colorView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pinch:)]];
@@ -122,10 +106,18 @@
     if (self.colorView.iState == 0)
     {
         self.colorView.iState = 1;
+        [sender setTitle:@"Pan/Zoom mode" forState:UIControlStateNormal];
     }
     else
     {
         self.colorView.iState = 0;
+        [sender setTitle:@"Color Grab Mode" forState:UIControlStateNormal];
     }
+}
+
+- (IBAction)deleteSquare:(id)sender
+{
+    self.colorView.colorSquare = NULL;
+    [self.colorView setNeedsDisplay];
 }
 @end

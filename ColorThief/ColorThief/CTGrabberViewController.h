@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@class ColorView, Palettes;
+@class ColorView, colorSquare, Palettes;
 
 @interface CTGrabberViewController : UIViewController
 - (IBAction)modeSwitch:(id)sender;
+- (IBAction)deleteSquare:(id)sender;
 
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
 
 @property (nonatomic, strong) Palettes *palette;
 @property (nonatomic, strong) UIImage *image;
+@property (nonatomic, strong) colorSquare *colorSquare;
 
 @end
