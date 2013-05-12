@@ -21,13 +21,6 @@
 @synthesize fCXOffSet = _fCXOffSet;
 @synthesize fCYOffset = _fCYOffSet;
 
-/* // Alloc colorSquare
-// ++++++++++++++++++++++++++++++++
-if (!self.colorSquare)
-{
-    self.colorSquare = [[colorSquare alloc] init];
-}
-*/ 
 - (id)initWithFrame:(CGRect)frame
 {
     _fScale = 1;
@@ -46,8 +39,8 @@ if (!self.colorSquare)
 {
     if (_iState == 0 && ((gesture.state == UIGestureRecognizerStateChanged) || (gesture.state == UIGestureRecognizerStateEnded)))
     {
+        [self.delegate scrollViewDidZoom:self];
         // set scale to appropriate value according to pinch and redraw
-        // NSLog(@"%d", _iState);
         _fScale += (gesture.scale - 1);
         gesture.scale = 1;
         [self setNeedsDisplay];

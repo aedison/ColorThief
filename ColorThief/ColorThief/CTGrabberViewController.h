@@ -23,4 +23,9 @@
 @property (nonatomic, strong) UIImage *image;
 @property (nonatomic, strong) NSManagedObjectContext *moc;
 
+// Gesture Recognizers
+@property (nonatomic, strong) UIPinchGestureRecognizer *gPinch;
+@property (nonatomic, strong) UIPanGestureRecognizer *gPan;
+@property (nonatomic, strong) UITapGestureRecognizer *gTap;
+
 @end

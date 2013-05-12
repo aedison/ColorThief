@@ -45,6 +45,20 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view.
     
+    // Gestures
+    self.gPinch = [[UIPinchGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pinch:)];
+    self.gPan = [[UIPanGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pan:)];
+    self.gTap = [[UITapGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(tap:)];
+    
+    // Set properties of colorView
+    [super viewDidLoad];
+    //other code...
+    self.colorView.delegate = self;
+    self.colorView.clipsToBounds = YES;
+    self.colorView.decelerationRate = UIScrollViewDecelerationRateFast;
+    self.colorView.zoomScale = 4;
+    self.colorView.maximumZoomScale = 10.0;
+    
     //Ask the AssetLibrary for the image that we want to load
     NSURL* assetURL = [NSURL URLWithString:self.palette.fileName];
     NSLog(@"Loading from palette name -- %@", self.palette.paletteName);
@@ -84,14 +98,6 @@
     self.colorView.iState = 0;
     self.colorView.fScale = 1;
     self.colorView.bDrawing = FALSE;
-
-    // add gesture recognizers
-    // add pinch recognizer
-    [self.colorView addGestureRecognizer:[[UIPinchGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pinch:)]];
-    // add pan recognizer
-    [self.colorView addGestureRecognizer:[[UIPanGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(pan:)]];
-    // add tap recognizer
-    [self.colorView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self.colorView action:@selector(tap:)]];
     
 }
 
@@ -106,17 +112,38 @@
     NSLog(@"Grabber disappeared");
 }
 
+-(void)scrollViewDidZoom:(ColorView *)colorView
+{
+    NSLog(@"zoom factor: %f", colorView.zoomScale);
+    UIPinchGestureRecognizer *test = colorView.pinchGestureRecognizer;
+    
+    UIView *piece = test.view;
+    CGPoint locationInView = [test locationInView:piece];
+    CGPoint locationInSuperview = [test locationInView:piece.superview];
+    
+    NSLog(@"locationInView: %@ locationInSuperView: %@", NSStringFromCGPoint(locationInView), NSStringFromCGPoint(locationInSuperview));
+}
+
 - (IBAction)modeSwitch:(id)sender
 {
     if (self.colorView.iState == 0)
     {
         self.colorView.iState = 1;
         [sender setTitle:@"Pan/Zoom mode" forState:UIControlStateNormal];
+        [self.colorView removeGestureRecognizer:self.gPinch];
+        [self.colorView removeGestureRecognizer:self.gPan];
+        [self.colorView removeGestureRecognizer:self.gTap];
     }
     else
     {
         self.colorView.iState = 0;
         [sender setTitle:@"Color Grab Mode" forState:UIControlStateNormal];
+        // add gesture recognizers
+        // add pinch recognizer
+
+        [self.colorView addGestureRecognizer:self.gPinch];
+        [self.colorView addGestureRecognizer:self.gPan];
+        [self.colorView addGestureRecognizer:self.gTap];
     }
 }
 
