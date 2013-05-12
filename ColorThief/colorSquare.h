@@ -13,9 +13,10 @@
 @interface colorSquare : NSObject
 
 // functions
- - (void) init:(int)iXP :(int)iYP :(int)iXS :(int)iYS;
- - (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count;
- - (UIColor*)getColorFromImage:(UIImage *)image;
+- (colorSquare *)init;
+- (colorSquare *)initWithRect:(CGRect)rect;
+- (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count;
+- (UIColor*)getColorFromImage:(UIImage *)image;
 
 // properties
 @property float fXPos;

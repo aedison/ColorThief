@@ -21,13 +21,19 @@
 @synthesize alphaVal = _alphaVal;
 
 
-
- - (void) init:(int)iXP :(int)iYP :(int)iXS :(int)iYS
+- (colorSquare *) init
 {
-    _fXPos = iXP;
-    _fYPos = iYP;
-    _fXSize = iXS;
-    _fYSize = iYS;
+    return [self initWithRect:CGRectMake(0, 0, 1, 1)];
+}
+
+- (colorSquare *) initWithRect:(CGRect) rect
+{
+    self = [super init];
+    self.fXPos = rect.origin.x;
+    self.fYPos = rect.origin.y;
+    self.fXSize = rect.size.width;
+    self.fYSize = rect.size.height;
+    return self;
 }
 
 - (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count

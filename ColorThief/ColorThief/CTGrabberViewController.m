@@ -46,6 +46,15 @@
             self.image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
             self.colorView.backgroundColor = [UIColor colorWithPatternImage:self.image];
             [self.colorView setNeedsDisplay];
+            // TESTING COLOR SQUARE
+            // ++++++++++++++++++++++++++++++++
+            if (!self.colorSquare)
+            {
+                self.colorSquare = [[colorSquare alloc] initWithRect:CGRectMake(50, 50, 10, 10)];
+            }
+            
+            UIColor *colorSquareColor = [self.colorSquare getColorFromImage:self.image];
+            NSLog(@"Color grabbed: %@",colorSquareColor.description);
         }
     };
     
@@ -78,21 +87,9 @@
 //    
 //    self.colorView.backgroundColor = [UIColor colorWithPatternImage:image];
     
-    // TESTING COLOR SQUARE
-    // ++++++++++++++++++++++++++++++++
-    if (!self.colorSquare)
-    {
-        self.colorSquare = [[colorSquare alloc] init];
-    }
-    // init at point (50, 50) with size (10, 10)
-    
-    [self.colorSquare init:50 :50 :5 :5];
-    NSArray *myArray = [self.colorSquare getRGBAsFromImage:self.image :50 :50 :4];
-    // NSLog(@"%@", myArray[0]);
-    NSLog(@"Array has been created");
+
     
     
-    self.colorView.backgroundColor = myArray[0];
     /* 
     // Test "getColorCode"
     UIColor *myTestColor = [self.colorSquare getColorCode:self.colorView];
