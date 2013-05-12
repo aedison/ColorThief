@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "colorSquare.h"
 
-@class Palettes;
+
+@class Palettes,colorSquare;
 
 @interface ColorView : UIView
 

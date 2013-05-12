@@ -47,14 +47,6 @@
             self.colorView.backgroundColor = [UIColor colorWithPatternImage:self.image];
             [self.colorView setNeedsDisplay];
             // TESTING COLOR SQUARE
-            // ++++++++++++++++++++++++++++++++
-            if (!self.colorSquare)
-            {
-                self.colorSquare = [[colorSquare alloc] initWithRect:CGRectMake(50, 50, 10, 10)];
-            }
-            
-            UIColor *colorSquareColor = [self.colorSquare getColorFromImage:self.image];
-            NSLog(@"Color grabbed: %@",colorSquareColor.description);
         }
     };
     

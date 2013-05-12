@@ -14,13 +14,12 @@
 // functions
 - (colorSquare *)init;
 - (colorSquare *)initWithRect:(CGRect)rect;
-- (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count;
 - (UIColor*)getColorFromImage:(UIImage *)image;
 
 // properties
-@property float fXPos;
-@property float fYPos;
-@property float fXSize;
-@property float fYSize;
+@property (nonatomic) float fXPos;
+@property (nonatomic) float fYPos;
+@property (nonatomic) float fXSize;
+@property (nonatomic) float fYSize;
 
 @end

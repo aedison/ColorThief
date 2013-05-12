@@ -8,6 +8,7 @@
 
 #import "ColorView.h"
 #import "Palettes+Saved.h"
+#import "colorSquare.h"
 
 @implementation ColorView
 
@@ -37,7 +38,7 @@ if (!self.colorSquare)
     
     self = [super initWithFrame:frame];
     if (self) {
-        // Initialization code
+        
     }
     return self;
 }
@@ -68,7 +69,8 @@ if (!self.colorSquare)
         self.colorSquare = [[colorSquare alloc] init];
         // initialize square as 1x1 at the location of the touch
         CGPoint pLoc = [gesture locationInView:self];
-        [self.colorSquare init:pLoc.x :pLoc.y :1 :1];
+        self.colorSquare.fXPos=pLoc.x;
+        self.colorSquare.fYPos = pLoc.y;
     }
 }
 
@@ -93,9 +95,7 @@ if (!self.colorSquare)
             if (!self.colorSquare) // This should always mean that bDrawing == FALSE
             {
                 // Alloc colorSquare if it doesn't exist
-                self.colorSquare = [[colorSquare alloc] init];
-                // initialize square as 1x1 at the location of the touch
-                [self.colorSquare init:pLoc.x :pLoc.y :1 :1];
+                self.colorSquare = [[colorSquare alloc] initWithRect:CGRectMake(pLoc.x, pLoc.y, 1, 1)];
                 // set bDrawing to true
                 _bDrawing = TRUE;
             }
@@ -179,7 +179,7 @@ if (!self.colorSquare)
         
         CGContextSetRGBFillColor(con, 1.0, 1.0, 1.0, .35);
         CGContextFillRect(con, rColorRect);
-        CGContextSetRGBFillColor(con, 0.0, 1.0, 0.0, 1.0);
+        CGContextSetFillColorWithColor(con, [[self.colorSquare getColorFromImage:image] CGColor]);
         CGContextFillRect(con, rDispRect);
     }
     

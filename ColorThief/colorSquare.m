@@ -15,6 +15,31 @@
 @synthesize fXSize = _fXSize;
 @synthesize fYSize = _fYSize;
 
+- (void) setFXSize:(float)fXSize
+{
+    if(fXSize > 50){
+        _fXSize = 50;
+    }
+    else if(fXSize<=0){
+        _fXSize = 1;
+    }
+    else{
+        _fXSize = fXSize;
+    }
+}
+
+- (void) setFYSize:(float)fYSize
+{
+    if(fYSize > 50){
+        _fYSize = 50;
+    }
+    else if(fYSize<=0){
+        _fYSize = 1;
+    }
+    else{
+        _fYSize = fYSize;
+    }
+}
 
 - (colorSquare *) init
 {
@@ -31,45 +56,7 @@
     return self;
 }
 
-- (NSArray*) getRGBAsFromImage:(UIImage*)image :(int)xx :(int)yy :(int)count
-{
-    NSMutableArray *result = [NSMutableArray arrayWithCapacity:count];
-    
-    // First get the image into your data buffer
-    CGImageRef imageRef = [image CGImage];
-    NSUInteger width = CGImageGetWidth(imageRef);
-    NSUInteger height = CGImageGetHeight(imageRef);
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    unsigned char *rawData = (unsigned char*) calloc(height * width * 4, sizeof(unsigned char));
-    NSUInteger bytesPerPixel = 4;
-    NSUInteger bytesPerRow = bytesPerPixel * width;
-    NSUInteger bitsPerComponent = 8;
-    CGContextRef context = CGBitmapContextCreate(rawData, width, height,
-                                                 bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
-    CGColorSpaceRelease(colorSpace);
-    
-    CGContextDrawImage(context, CGRectMake(0, 0, width, height), imageRef);
-    CGContextRelease(context);
-    
-    // Now your rawData contains the image data in the RGBA8888 pixel format.
-    int byteIndex = (bytesPerRow * yy) + xx * bytesPerPixel;
-    for (int ii = 0 ; ii < count ; ++ii)
-    {
-        CGFloat red   = (rawData[byteIndex]     * 1.0) / 255.0;
-        CGFloat green = (rawData[byteIndex + 1] * 1.0) / 255.0;
-        CGFloat blue  = (rawData[byteIndex + 2] * 1.0) / 255.0;
-        CGFloat alpha = (rawData[byteIndex + 3] * 1.0) / 255.0;
-        byteIndex += 4;
-        
-        UIColor *acolor = [UIColor colorWithRed:red green:green blue:blue alpha:alpha];
-        [result addObject:acolor];
-    }
-    
-    free(rawData);
-    
-    return result;
-}
+
 
 - (UIColor*)getColorFromImage:(UIImage *)image
 {
@@ -99,6 +86,7 @@
     CGColorSpaceRelease(colorSpace);
     CGContextDrawImage(context, CGRectMake(0, 0, imageBounds.size.width, imageBounds.size.height), imageRef);
     CGContextRelease(context);
+    CGImageRelease(imageRef);
     
     //Determine which bytes contain the Alpha Info
     int redOffset;
@@ -147,23 +135,24 @@
     }
     
     //rawData now contains all of the pixel data, so start iterating over it to get the info we want.
-    float normailizer = (2^CGImageGetBitsPerPixel(imageRef))-1;
+    float pixelCount = imageBounds.size.height * imageBounds.size.width;
+    float normailizer = pow(2,bitsPerComponent)-1;
     float redTotal = 0;
     float greenTotal = 0;
     float blueTotal = 0;
     float alphaTotal=0;
     
     for(int ii = 0; ii<imageBounds.size.height*bytesPerRow;ii+=bytesPerPixel){
-        redTotal+=(rawData[ii]*1.0)/normailizer;
-        greenTotal+=(rawData[ii+bytesPerComponent]*1.0)/normailizer;
-        blueTotal+=(rawData[ii+2*bytesPerComponent]*1.0)/normailizer;
-        alphaTotal+=(rawData[ii+alphaOffset*bytesPerComponent]*1.0)/normailizer;
+        redTotal+=(rawData[ii]*1.0);
+        greenTotal+=(rawData[ii+bytesPerComponent]*1.0);
+        blueTotal+=(rawData[ii+2*bytesPerComponent]*1.0);
+        alphaTotal+=(rawData[ii+alphaOffset*bytesPerComponent]*1.0);
     }
     
-    float redAverage = redTotal/(imageBounds.size.height*bytesPerRow);
-    float greenAverage = greenTotal/(imageBounds.size.height*bytesPerRow);
-    float blueAverage = blueTotal/(imageBounds.size.height*bytesPerRow);
-    float alphaAverage = alphaTotal/(imageBounds.size.height*bytesPerRow);
+    float redAverage = redTotal/(pixelCount*normailizer);
+    float greenAverage = greenTotal/(pixelCount*normailizer);
+    float blueAverage = blueTotal/(pixelCount*normailizer);
+    float alphaAverage = alphaTotal/(pixelCount*normailizer);
     
     if(alphaInData){
         color = [UIColor colorWithRed:redAverage green:greenAverage blue:blueAverage alpha:alphaAverage];
@@ -175,6 +164,8 @@
         NSLog(@"Greyscale image, we really shouldnt have gotten here since the space is RGB");
         color = [UIColor colorWithRed:255 green:255 blue:255 alpha:alphaAverage];
     }
+    
+    free(rawData);
     
     return color;
 }

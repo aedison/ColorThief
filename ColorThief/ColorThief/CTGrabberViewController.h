@@ -19,6 +19,5 @@
 
 @property (nonatomic, strong) Palettes *palette;
 @property (nonatomic, strong) UIImage *image;
-@property (nonatomic, strong) colorSquare *colorSquare;
 
 @end
