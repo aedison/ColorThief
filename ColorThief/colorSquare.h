@@ -15,6 +15,7 @@
 - (colorSquare *)init;
 - (colorSquare *)initWithRect:(CGRect)rect;
 - (UIColor*)getColorFromImage:(UIImage *)image;
+- (UIImage *)getBoundedImageFromImage:(UIImage*)image;
 
 // properties
 @property (nonatomic) float fXPos;

@@ -253,6 +253,7 @@
 {
     //Verify that the field is valid, and allow returning if it is.
     if([self textFieldIsValid:textField]){
+        //self.keyboardYOffset = -self.keyboardYOffset;
         [textField resignFirstResponder];
         self.navigationItem.hidesBackButton = NO;
         return YES;
@@ -273,6 +274,13 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.keyboardYOffset = abs(self.keyboardYOffset);
+    self.navigationItem.hidesBackButton = YES;
+}
+
+
 //Similar to the shouldReturn method, except this is where
 //we tell set the keyboard offset to be negative, so the view slides
 //back to the right place.
@@ -280,13 +288,17 @@
 {
     if([self textFieldIsValid:textField]){
         self.keyboardYOffset = -self.keyboardYOffset;
-        self.navigationItem.hidesBackButton = NO;
         [textField resignFirstResponder];
         return YES;
     }
     else{
         return NO;
     }
+}
+
+-(void) textFieldDidEndEditing:(UITextField *)textField
+{
+    self.navigationItem.hidesBackButton = NO;
 }
 
 

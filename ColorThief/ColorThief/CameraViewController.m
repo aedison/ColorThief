@@ -120,7 +120,7 @@
                 if (error) {
                     NSLog(@"error -- %@",error);
                 } else {
-                    
+                    NSLog(@"Image has orientation -- %d",(ALAssetOrientation)[viewImage imageOrientation]);
                     self.paletteToPass=[Palettes newPaletteInContext:self.managedObjectContext withName:paletteName andFileName:imageURL];
                     [self performSegueWithIdentifier:@"CameraToGrabber" sender:self];
                     self.picker=nil;

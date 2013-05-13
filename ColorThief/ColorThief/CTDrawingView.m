@@ -30,6 +30,7 @@
     {
         float colorX = self.colorSquare.fXPos*self.scale+self.overlayedView.frame.origin.x;
         float colorY = self.colorSquare.fYPos*self.scale+self.overlayedView.frame.origin.y;
+        
         CGRect rColorRect = CGRectMake(colorX, colorY, self.colorSquare.fXSize, self.colorSquare.fYSize);
         CGRect rDispRect = CGRectMake(rColorRect.origin.x - (2 * self.colorSquare.fXSize), rColorRect.origin.y - 30 - (.5 * self.colorSquare.fYSize), 50, 50);
         // move the color display to left/right depending on screen location of square

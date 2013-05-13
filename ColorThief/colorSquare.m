@@ -43,7 +43,7 @@
 
 - (colorSquare *) init
 {
-    return [self initWithRect:CGRectMake(0, 0, 1, 1)];
+    return [self initWithRect:CGRectMake(0, 0, 5, 5)];
 }
 
 - (colorSquare *) initWithRect:(CGRect) rect
@@ -56,6 +56,47 @@
     return self;
 }
 
+- (UIImage *)getBoundedImageFromImage:(UIImage*)image
+{
+    //Set the bounds for the image, and get a new one cropped to the bounds.
+    CGRect imageBounds = CGRectMake(self.fXPos, self.fYPos, self.fXSize, self.fYSize);
+    UIImage *newImage;
+    switch ([image imageOrientation]) {
+        case UIImageOrientationUp:
+            imageBounds = CGRectMake(self.fXPos, self.fYPos, self.fXSize, self.fYSize);
+            break;
+        case UIImageOrientationDown:
+            imageBounds = CGRectMake(image.size.width - self.fXPos-self.fXSize, image.size.height-self.fYPos-self.fYSize, self.fXSize, self.fYSize);
+            break;
+        case UIImageOrientationLeft:
+            imageBounds = CGRectMake(image.size.height - self.fYPos, self.fXPos - self.fYSize, self.fYSize, self.fXSize);
+            break;
+        case UIImageOrientationRight:
+            imageBounds = CGRectMake(self.fYPos, image.size.width - self.fXPos - self.fXSize, self.fYSize, self.fXSize);
+            break;
+        case UIImageOrientationDownMirrored:
+            newImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationDownMirrored];
+            break;
+        case UIImageOrientationUpMirrored:
+            newImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationUpMirrored];
+            break;
+        case UIImageOrientationLeftMirrored:
+            newImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationRightMirrored];
+            break;
+        case UIImageOrientationRightMirrored:
+            newImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationLeftMirrored];
+            break;
+        default:
+            newImage = [UIImage imageWithCGImage:[image CGImage] scale:1 orientation:UIImageOrientationUp];
+            break;
+    }
+    
+    NSLog(@"UIImage Orientation -- %d", image.imageOrientation);
+    CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage],imageBounds);
+    UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return returnImage;
+}
 
 
 - (UIColor*)getColorFromImage:(UIImage *)image
@@ -63,11 +104,34 @@
     UIColor *color = nil;
     
     //Set the bounds for the image, and get a new one cropped to the bounds.
-    CGRect imageBounds = CGRectMake(self.fXPos, self.fYPos, self.fXSize, self.fYSize);
+    CGRect imageBounds ;
+    switch ([image imageOrientation]) {
+        case UIImageOrientationUp:
+            imageBounds = CGRectMake(self.fXPos, self.fYPos, self.fXSize, self.fYSize);
+            break;
+        case UIImageOrientationDown:
+            imageBounds = CGRectMake(image.size.width - self.fXPos-self.fXSize, image.size.height-self.fYPos-self.fYSize, self.fXSize, self.fYSize);
+            break;
+        case UIImageOrientationLeft:
+            imageBounds = CGRectMake(image.size.height - self.fYPos, self.fXPos - self.fYSize, self.fYSize, self.fXSize);
+            break;
+        case UIImageOrientationRight:
+            imageBounds = CGRectMake(self.fYPos, image.size.width - self.fXPos - self.fXSize, self.fYSize, self.fXSize);
+            break;
+        case UIImageOrientationDownMirrored:
+        case UIImageOrientationUpMirrored:
+        case UIImageOrientationLeftMirrored:
+        case UIImageOrientationRightMirrored:
+        default:
+            imageBounds = CGRectMake(self.fXPos, self.fYPos, self.fXSize, self.fYSize);
+            break;
+    }
+
+    NSLog(@"UIImage Orientation -- %d", image.imageOrientation);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage],imageBounds);
     
     
-    //Get data information from the new CGImage
+    //Set up the data for the bitmap context
     NSUInteger bytesPerPixel = 4;
     NSUInteger bytesPerRow = imageBounds.size.width*bytesPerPixel;
     NSUInteger bitsPerComponent = 8;

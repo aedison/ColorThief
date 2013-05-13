@@ -165,7 +165,16 @@
 
 - (IBAction)saveColor:(UIButton *)sender {
     if(self.overlay.colorSquare){
-        [Colors newColorFromUIColor:[self.overlay.colorSquare getColorFromImage:self.colorView.image] inContext:self.moc inPalette:self.palette];
+        Colors * newColor=[Colors newColorFromUIColor:[self.overlay.colorSquare getColorFromImage:self.colorView.image] inContext:self.moc inPalette:self.palette];
+        NSError *error=nil;
+        if([self.moc save:&error]){
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Saving" message:[NSString stringWithFormat:@"Your color %@ has been saved",[newColor hexString]] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+        }
+        else {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Database Error" message:[NSString stringWithFormat:@"%@",error] delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
+            [alert show];
+        }
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Box" message:@"You can only save once you have drawn a color square" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
