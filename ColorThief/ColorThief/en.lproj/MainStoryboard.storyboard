@@ -131,12 +131,19 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0PJ-Rb-lw3" customClass="ColorView">
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L8p-6D-jRb"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4rR-tu-W65" customClass="CTDrawingView">
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="4rR-tu-W65" firstAttribute="top" secondItem="0PJ-Rb-lw3" secondAttribute="top" type="default" id="1vk-rH-8gt"/>
+                                    <constraint firstItem="4rR-tu-W65" firstAttribute="leading" secondItem="0PJ-Rb-lw3" secondAttribute="leading" type="default" id="D2G-8x-l8M"/>
                                     <constraint firstItem="L8p-6D-jRb" firstAttribute="leading" secondItem="0PJ-Rb-lw3" secondAttribute="leading" type="user" id="LeQ-cd-iWX"/>
+                                    <constraint firstItem="4rR-tu-W65" firstAttribute="bottom" secondItem="0PJ-Rb-lw3" secondAttribute="bottom" type="default" id="c9B-Xj-MNb"/>
                                     <constraint firstItem="L8p-6D-jRb" firstAttribute="bottom" secondItem="0PJ-Rb-lw3" secondAttribute="bottom" type="default" id="tcr-N9-T8x"/>
                                     <constraint firstItem="L8p-6D-jRb" firstAttribute="trailing" secondItem="0PJ-Rb-lw3" secondAttribute="trailing" type="user" id="wt5-5w-Ih2"/>
+                                    <constraint firstItem="4rR-tu-W65" firstAttribute="trailing" secondItem="0PJ-Rb-lw3" secondAttribute="trailing" type="default" id="yCp-qR-XqJ"/>
                                     <constraint firstItem="L8p-6D-jRb" firstAttribute="top" secondItem="0PJ-Rb-lw3" secondAttribute="top" type="default" id="zTu-KM-A50"/>
                                 </constraints>
                             </view>
@@ -187,7 +194,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="0PJ-Rb-lw3" firstAttribute="top" secondItem="drI-nG-B8p" secondAttribute="top" type="user" id="BLp-bc-pDh"/>
                             <constraint firstAttribute="bottom" secondItem="tf0-ia-bWa" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="FM4-ra-t8s"/>
@@ -207,10 +214,17 @@
                             <constraint firstAttribute="bottom" secondItem="J84-OT-JcU" secondAttribute="bottom" constant="20" symbolic="YES" type="default" id="ycy-0e-ldd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Grabber" id="Jpk-qj-pFX"/>
+                    <navigationItem key="navigationItem" title="Grabber" id="Jpk-qj-pFX">
+                        <barButtonItem key="rightBarButtonItem" title="Home" id="l8v-SE-C5f">
+                            <connections>
+                                <action selector="homeButtom:" destination="siX-BB-BDM" id="Pbf-cp-W3t"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="colorView" destination="0PJ-Rb-lw3" id="hc3-cx-CUU"/>
                         <outlet property="imageView" destination="L8p-6D-jRb" id="629-dm-q7I"/>
+                        <outlet property="overlay" destination="4rR-tu-W65" id="0cF-i3-2by"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="kzy-xP-fZi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -589,70 +603,6 @@
             <point key="canvasLocation" x="1143" y="1031"/>
         </scene>
     </scenes>
-    <classes>
-        <class className="CTColorEditorController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTColorEditorController.h"/>
-            <relationships>
-                <relationship kind="action" name="alphaSliderChanged:" candidateClass="UISlider"/>
-                <relationship kind="action" name="blueSliderChanged:" candidateClass="UISlider"/>
-                <relationship kind="action" name="greenSliderChagned:" candidateClass="UISlider"/>
-                <relationship kind="action" name="redSliderChanged:" candidateClass="UISlider"/>
-                <relationship kind="action" name="resetButton:" candidateClass="UIButton"/>
-                <relationship kind="action" name="saveButton:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="alphaSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="alphaTxtField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="blueSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="blueTxtField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="colorHex" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="colorIV" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="colorViewLoading" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="greenSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="greenTxtField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="paletteName" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="paletteSourceIV" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="paletteSourceLoading" candidateClass="UIActivityIndicatorView"/>
-                <relationship kind="outlet" name="redSlider" candidateClass="UISlider"/>
-                <relationship kind="outlet" name="redTxtField" candidateClass="UITextField"/>
-            </relationships>
-        </class>
-        <class className="CTColorTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTColorTVC.h"/>
-        </class>
-        <class className="CTGrabberViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTGrabberViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="deleteSquare:"/>
-                <relationship kind="action" name="modeSwitch:"/>
-                <relationship kind="action" name="saveColor:" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="colorView" candidateClass="ColorView"/>
-                <relationship kind="outlet" name="imageView" candidateClass="UIImageView"/>
-            </relationships>
-        </class>
-        <class className="CTMediaBrowserVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTMediaBrowserVC.h"/>
-            <relationships>
-                <relationship kind="outlet" name="mediaWarning" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="CTPaletteTVC" superclassName="UITableViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTPaletteTVC.h"/>
-        </class>
-        <class className="CTRootVC" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CTRootVC.h"/>
-        </class>
-        <class className="CameraViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/CameraViewController.h"/>
-            <relationships>
-                <relationship kind="outlet" name="cameraWarning" candidateClass="UILabel"/>
-            </relationships>
-        </class>
-        <class className="ColorView" superclassName="UIScrollView">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/ColorView.h"/>
-        </class>
-        <class className="NSLayoutConstraint" superclassName="NSObject">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/NSLayoutConstraint.h"/>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

@@ -9,12 +9,11 @@
 #import <UIKit/UIKit.h>
 
 
-@class Palettes,colorSquare;
+@class Palettes,colorSquare,CTDrawingView;
 
 @interface ColorView : UIScrollView
 
-// colorSquare
-@property (nonatomic) colorSquare *colorSquare;
+
 @property (nonatomic) bool bDrawing;
 @property (nonatomic) CGFloat fCXOffSet;
 @property (nonatomic) CGFloat fCYOffset;
@@ -26,8 +25,14 @@
 @property (nonatomic) CGFloat fXOffSet;
 @property (nonatomic) CGFloat fYOffset;
 
-// Palette
+// Image we are holding
 @property (nonatomic, strong) UIImage *image;
+
+//Content view
+@property (nonatomic, weak) UIView *content;
+
+// The our associated drawing view
+@property (nonatomic, weak) CTDrawingView *overlay;
 
 // view mode/grab mode
 // This property will denote whether we are in the "picture view" state or the "color select" state

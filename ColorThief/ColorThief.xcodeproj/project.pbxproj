@@ -15,6 +15,7 @@
 		812418D917217F2300C995FB /* Colors+Saved.m in Sources */ = {isa = PBXBuildFile; fileRef = 812418D817217F2300C995FB /* Colors+Saved.m */; };
 		8142BD9C17300B0C00B8CEE9 /* CTMediaBrowserVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 8142BD9B17300B0C00B8CEE9 /* CTMediaBrowserVC.m */; };
 		816917671721C751002F4BF6 /* Colors.m in Sources */ = {isa = PBXBuildFile; fileRef = 816917661721C751002F4BF6 /* Colors.m */; };
+		8170933A174076F700245EFA /* CTDrawingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 81709339174076F700245EFA /* CTDrawingView.m */; };
 		81C9229E171BD74200A41A55 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229D171BD74200A41A55 /* UIKit.framework */; };
 		81C922A0171BD74200A41A55 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C9229F171BD74200A41A55 /* Foundation.framework */; };
 		81C922A2171BD74200A41A55 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 81C922A1171BD74200A41A55 /* CoreGraphics.framework */; };
@@ -53,6 +54,9 @@
 		8142BD9B17300B0C00B8CEE9 /* CTMediaBrowserVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTMediaBrowserVC.m; sourceTree = "<group>"; };
 		816917651721C751002F4BF6 /* Colors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Colors.h; sourceTree = "<group>"; };
 		816917661721C751002F4BF6 /* Colors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Colors.m; sourceTree = "<group>"; };
+		81709338174076F700245EFA /* CTDrawingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CTDrawingView.h; sourceTree = "<group>"; };
+		81709339174076F700245EFA /* CTDrawingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CTDrawingView.m; sourceTree = "<group>"; };
+		8170933B1740899F00245EFA /* TestingPicture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TestingPicture.jpg; sourceTree = "<group>"; };
 		81C9229A171BD74200A41A55 /* ColorThief.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ColorThief.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81C9229D171BD74200A41A55 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		81C9229F171BD74200A41A55 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -211,6 +215,7 @@
 		81C922A4171BD74200A41A55 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				8170933B1740899F00245EFA /* TestingPicture.jpg */,
 				F8CC6ACD17271E8C00A0AD34 /* iPhoneSamplePic.jpg */,
 				81C922A5171BD74200A41A55 /* ColorThief-Info.plist */,
 				81C922A6171BD74200A41A55 /* InfoPlist.strings */,
@@ -232,6 +237,8 @@
 				8123D3BA1725CBBE00106A45 /* CTGrabberViewController.m */,
 				F88B0A771735929500A21484 /* colorSquare.h */,
 				F88B0A781735929500A21484 /* colorSquare.m */,
+				81709338174076F700245EFA /* CTDrawingView.h */,
+				81709339174076F700245EFA /* CTDrawingView.m */,
 			);
 			name = "Grabber Pieces";
 			sourceTree = "<group>";
@@ -321,6 +328,7 @@
 				8142BD9C17300B0C00B8CEE9 /* CTMediaBrowserVC.m in Sources */,
 				8107778617382A7100D8B42B /* CTKeyboardHandler.m in Sources */,
 				F88B0A791735929500A21484 /* colorSquare.m in Sources */,
+				8170933A174076F700245EFA /* CTDrawingView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

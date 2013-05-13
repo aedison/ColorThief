@@ -12,6 +12,7 @@
 #import "Palettes+Saved.h"
 #import "Colors+Saved.h"
 #import "CTAppDelegate.h"
+#import "CTDrawingView.h"
 
 
 @interface CTGrabberViewController ()
@@ -58,10 +59,12 @@
     self.colorView.decelerationRate = UIScrollViewDecelerationRateFast;
     self.colorView.minimumZoomScale = .1;
     self.colorView.maximumZoomScale = 10.0;
+    self.colorView.overlay = self.overlay;
+    self.colorView.content = self.imageView;
+    self.overlay.overlayedView = self.imageView;
     
     //Ask the AssetLibrary for the image that we want to load
     NSURL* assetURL = [NSURL URLWithString:self.palette.fileName];
-    NSLog(@"Loading from palette name -- %@", self.palette.paletteName);
     
     ALAssetsLibraryAssetForURLResultBlock resultblock = ^(ALAsset *myasset)
     {
@@ -71,6 +74,7 @@
             self.image = [UIImage imageWithCGImage:iref scale:[rep scale] orientation:(UIImageOrientation)[rep orientation]];
             self.colorView.image = self.image;
             self.imageView.image = self.image;
+            self.overlay.image = self.image;
             self.colorView.contentSize = self.image.size;
             self.colorView.zoomScale = self.view.frame.size.width/self.image.size.width;
             [self.colorView setNeedsDisplay];
@@ -108,21 +112,21 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void) viewWillDisappear:(BOOL)animated
-{
-    NSLog(@"Grabber disappeared");
-}
 
 -(void)scrollViewDidZoom:(ColorView *)colorView
 {
-    NSLog(@"zoom factor: %f", colorView.zoomScale);
-    UIPinchGestureRecognizer *test = colorView.pinchGestureRecognizer;
+//    NSLog(@"zoom factor: %f", colorView.zoomScale);
+//    UIPinchGestureRecognizer *test = colorView.pinchGestureRecognizer;
+//    
+//    UIView *piece = test.view;
+//    CGPoint locationInView = [test locationInView:piece];
+//    CGPoint locationInSuperview = [test locationInView:piece.superview];
+//    
+//    NSLog(@"locationInView: %@ locationInSuperView: %@", NSStringFromCGPoint(locationInView), NSStringFromCGPoint(locationInSuperview));
+
+    //NSLog(@"Position of imageView %@",NSStringFromCGPoint(self.imageView.frame.origin));
     
-    UIView *piece = test.view;
-    CGPoint locationInView = [test locationInView:piece];
-    CGPoint locationInSuperview = [test locationInView:piece.superview];
-    
-    NSLog(@"locationInView: %@ locationInSuperView: %@", NSStringFromCGPoint(locationInView), NSStringFromCGPoint(locationInSuperview));
+    self.overlay.scale = colorView.zoomScale;
 }
 
 - (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView
@@ -155,17 +159,21 @@
 
 - (IBAction)deleteSquare:(id)sender
 {
-    self.colorView.colorSquare = NULL;
+    self.overlay.colorSquare = NULL;
     [self.colorView setNeedsDisplay];
 }
 
 - (IBAction)saveColor:(UIButton *)sender {
-    if(self.colorView.colorSquare){
-        [Colors newColorFromUIColor:[self.colorView.colorSquare getColorFromImage:self.colorView.image] inContext:self.moc inPalette:self.palette];
+    if(self.overlay.colorSquare){
+        [Colors newColorFromUIColor:[self.overlay.colorSquare getColorFromImage:self.colorView.image] inContext:self.moc inPalette:self.palette];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"No Box" message:@"You can only save once you have drawn a color square" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles: nil];
         [alert show];
     }
+}
+
+- (IBAction)homeButtom:(UIBarButtonItem *)sender {
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 @end

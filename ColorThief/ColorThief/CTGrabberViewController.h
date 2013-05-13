@@ -9,15 +9,17 @@
 #import <UIKit/UIKit.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@class ColorView, colorSquare, Palettes;
+@class ColorView, colorSquare, Palettes, CTDrawingView;
 
 @interface CTGrabberViewController : UIViewController <UIScrollViewDelegate>
 - (IBAction)modeSwitch:(id)sender;
 - (IBAction)deleteSquare:(id)sender;
 - (IBAction)saveColor:(UIButton *)sender;
+- (IBAction)homeButtom:(UIBarButtonItem *)sender;
 
 @property (strong, nonatomic) IBOutlet ColorView *colorView;
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
+@property (weak, nonatomic) IBOutlet CTDrawingView *overlay;
 
 @property (nonatomic, strong) Palettes *palette;
 @property (nonatomic, strong) UIImage *image;
