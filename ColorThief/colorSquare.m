@@ -91,7 +91,6 @@
             break;
     }
     
-    NSLog(@"UIImage Orientation -- %d", image.imageOrientation);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage],imageBounds);
     UIImage *returnImage = [UIImage imageWithCGImage:imageRef];
     CGImageRelease(imageRef);
@@ -127,7 +126,6 @@
             break;
     }
 
-    NSLog(@"UIImage Orientation -- %d", image.imageOrientation);
     CGImageRef imageRef = CGImageCreateWithImageInRect([image CGImage],imageBounds);
     
     
